@@ -1,6 +1,6 @@
 # Overview
 
-MCCA is a tool which, on execution, generates a report highlighting known issues in your compliance configurations in achieving data protection guidelines and recommends best practices to follow.
+Microsoft Compliance Configuration Analyzer (MCCA) is a tool which, on execution, generates a report highlighting known issues in your compliance configurations in achieving data protection guidelines and recommends best practices to follow.
 
 # What is Microsoft Compliance Configuration Analyzer (MCCA)?
 
