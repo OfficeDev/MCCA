@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ImprovementActions> 
+   <ActionItem ActionName = "Create DLP Policies for Government Data" CheckName="DLP">
+           <ParentArea>Microsoft Information Protection</ParentArea>
+           <Area>Data Loss Prevention</Area>
+           <Name>Create DLP Policies for Government Data</Name>
+           <RemediationPolicyName>MCCA Government Data</RemediationPolicyName>
+           <PassText>Your organization has set up DLP policies for Government Data</PassText>
+           <FailRecommendation>Your organization has not created DLP policies for Government Data</FailRecommendation>
+           <Importance>Microsoft recommends that your organization create and manage Data Loss Prevention (DLP) policies to identify and protect government data (e.g., OUO, CUI, Classified, Restricted) across Exchange Online, Microsoft Teams, SharePoint Online, and OneDrive for Business.</Importance>
+           <SITs>
+            <SIT Geo = "AUS">Australia Tax File Number</SIT>
+            <SIT Geo = "CAN">Canada Passport Number</SIT>
+            <SIT Geo = "CAN">Canada Social Insurance Number</SIT>
+            <SIT Geo = "AUS">Australia Driver's License Number</SIT>
+            <SIT Geo = "CAN">Canada Driver's License Number</SIT>
+            <SIT Geo = "FRA">France Social Security Number (INSEE)</SIT>
+            <SIT Geo = "FRA">France Driver's License Number</SIT>
+            <SIT Geo = "FRA">France Passport Number</SIT>
+            <SIT Geo = "FRA">France National ID Card (CNI)</SIT>
+            <SIT Geo = "EUR">German Driver's License Number</SIT>
+            <SIT Geo = "EUR">German Passport Number</SIT>
+            <SIT Geo = "APC">Israel National ID</SIT>
+            <SIT Geo = "JPN">Japan Resident Registration Number</SIT>
+            <SIT Geo = "JPN">Japan Social Insurance Number (SIN)</SIT>
+            <SIT Geo = "NAM">U.S. / U.K. Passport Number</SIT>
+            <SIT Geo = "NAM">U.S. Individual Taxpayer Identification Number (ITIN)</SIT>
+            <SIT Geo = "NAM">U.S. Social Security Number (SSN)</SIT>
+            <SIT Geo = "APC">Saudi Arabia National ID</SIT>
+           </SITs>
+           <Links>
+                     <Link>
+                        <LinkText>Create a DLP policy from a template</LinkText> 
+                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Manager - DLP Actions</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                     </Link>
+            </Links>
+    </ActionItem>
+    <ActionItem ActionName = "Create customized or use default DLP Policies for Company Sensitive Information" CheckName="DLP">
+           <ParentArea>Microsoft Information Protection</ParentArea>
+           <Area>Data Loss Prevention</Area>
+           <Name>Create customized or use default DLP Policies for Company Sensitive Information</Name>
+           <RemediationPolicyName>MCCA Company Sensitive Information</RemediationPolicyName>
+           <PassText>Your organization has set up DLP policies for Company Sensitive Information</PassText>
+           <FailRecommendation>Your organization has not set up DLP policies for Company Sensitive Information</FailRecommendation>
+           <Importance>Microsoft recommends that your organization create and manage Data Loss Prevention (DLP) policies to identify and protect company sensitive information across Exchange Online, Microsoft Teams, SharePoint Online, and OneDrive for Business.</Importance>
+           <SITs>
+            <SIT Geo = "AUS">Australia Tax File Number</SIT>
+            <SIT Geo = "AUS">Australia Driver's License Number</SIT>
+            <SIT Geo = "CAN">Canada Passport Number</SIT>
+            <SIT Geo = "CAN">Canada Social Insurance Number</SIT>
+            <SIT Geo = "CAN">Canada Health Service Number</SIT>
+            <SIT Geo = "CAN">Canada Personal Health Identification Number (PHIN)</SIT>
+            <SIT Geo = "CAN">Canada Driver's License Number</SIT>
+            <SIT Geo = "CAN">Canada Bank Account Number</SIT>
+            <SIT Geo = "FRA">France Social Security Number (INSEE)</SIT>
+            <SIT Geo = "FRA">France Driver's License Number</SIT>
+            <SIT Geo = "FRA">France Passport Number</SIT>
+            <SIT Geo = "FRA">France National ID Card (CNI)</SIT>
+            <SIT Geo = "EUR">German Driver's License Number</SIT>
+            <SIT Geo = "EUR">German Passport Number</SIT>
+            <SIT Geo = "APC">Israel National ID</SIT>
+            <SIT Geo = "JPN">Japan Resident Registration Number</SIT>
+            <SIT Geo = "JPN">Japan Social Insurance Number (SIN)</SIT>
+            <SIT Geo = "GBR">U.K. National Health Service Number</SIT>
+            <SIT Geo = "INTL">SWIFT Code</SIT>
+            <SIT Geo = "GBR">U.K. National Insurance Number (NINO)</SIT>
+            <SIT Geo = "NAM">U.S. / U.K. Passport Number</SIT>
+            <SIT Geo = "NAM">U.S. Individual Taxpayer Identification Number (ITIN)</SIT>
+            <SIT Geo = "INTL">Credit Card Number</SIT>
+            <SIT Geo = "EUR">EU Debit Card Number</SIT>
+            <SIT Geo = "APC">Israel Bank Account Number</SIT>
+            <SIT Geo = "NAM">U.S. Bank Account Number</SIT>
+            <SIT Geo = "NAM">ABA Routing Number</SIT>
+            <SIT Geo = "JPN">Japan Bank Account Number</SIT>
+            <SIT Geo = "NAM">U.S. Social Security Number (SSN)</SIT>
+            <SIT Geo = "APC">Saudi Arabia National ID</SIT>   
+
+            <SIT Geo = "INTL">Azure DocumentDB Auth Key</SIT>
+            <SIT Geo = "INTL">Azure IAAS Database Connection String and Azure SQL Connection String</SIT>
+            <SIT Geo = "INTL">Azure IoT Connection String</SIT>
+				<SIT Geo = "INTL">Azure Redis Cache Connection String</SIT>
+				<SIT Geo = "INTL">Azure SAS</SIT>
+            <SIT Geo = "INTL">Azure Publish Setting Password</SIT>
+            <SIT Geo = "INTL">Azure Storage Account Key (Generic)</SIT>
+				<SIT Geo = "INTL">SQL Server Connection String</SIT>
+				<SIT Geo = "INTL">Azure Service Bus Connection String</SIT>
+            <SIT Geo = "INTL">IP Address</SIT>
+            <SIT Geo = "INTL">Azure Storage Account Key</SIT>
+            <SIT Geo = "INTL">Azure Service Bus Connection String</SIT>        
+           </SITs>
+           <Links>
+                     <Link>
+                        <LinkText>Create a DLP policy from a template</LinkText> 
+                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Manager - DLP Actions</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                     </Link>
+            </Links>
+    </ActionItem>
+    <ActionItem ActionName = "Create customized or use default DLP Policies for ePHI" CheckName="DLP">
+           <ParentArea>Microsoft Information Protection</ParentArea>
+           <Area>Data Loss Prevention</Area>
+           <Name>Create customized or use default DLP Policies for ePHI</Name>
+           <RemediationPolicyName>MCCA ePHI</RemediationPolicyName>
+           <PassText>Your organization has set up DLP policies for ePHI</PassText>
+           <FailRecommendation>Your organization has not set up DLP policies for ePHI</FailRecommendation>
+           <Importance>Microsoft recommends that your organization create and manage Data Loss Prevention (DLP) policies to identify and protect electronic Personal Health Information (ePHI) across Exchange Online, Microsoft Teams, SharePoint Online, and OneDrive for Business.</Importance>
+           <SITs>
+
+            <SIT Geo = "INTL">International Classification of Diseases (ICD-9-CM)</SIT>
+            <SIT Geo = "INTL">International Classification of Diseases (ICD-10-CM)</SIT>
+            <SIT Geo = "AUS">New Zealand Ministry of Health Number</SIT>
+            <SIT Geo = "NAM">Drug Enforcement Agency (DEA) Number</SIT>
+
+				<SIT Geo = "AUS">Australia Tax File Number</SIT>
+            <SIT Geo = "AUS">Australia Medical Account Number</SIT>
+            <SIT Geo = "CAN">Canada Passport Number</SIT>
+            <SIT Geo = "CAN">Canada Social Insurance Number</SIT>
+            <SIT Geo = "CAN">Canada Health Service Number</SIT>
+            <SIT Geo = "CAN">Canada Personal Health Identification Number (PHIN)</SIT>
+           </SITs>
+           <Links>
+                     <Link>
+                        <LinkText>Create a DLP policy from a template</LinkText> 
+                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Manager - DLP Actions</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                     </Link>
+            </Links>
+    </ActionItem>
+    <ActionItem ActionName = "Create customized or use default DLP Policies for Personally Identifiable Information" CheckName="DLP">
+           <ParentArea>Microsoft Information Protection</ParentArea>
+           <Area>Data Loss Prevention</Area>
+           <Name>Create customized or use default DLP Policies for Personally Identifiable Information</Name>
+           <RemediationPolicyName>MCCA Personally Identifiable Information</RemediationPolicyName>
+           <PassText>Your organization has set up DLP policies for Personally Identifiable Information (PII)</PassText>
+           <FailRecommendation>Your organization has not set up DLP policies for Personally Identifiable Information (PII)</FailRecommendation>
+           <Importance>Microsoft recommends that your organization create and manage Data Loss Prevention (DLP) policies to identify and protect Personally Identifiable Information (PII) across Exchange Online, Microsoft Teams, SharePoint Online, and OneDrive for Business.</Importance>
+           <SITs>
+              <SIT Geo = "LAM">Argentina National Identity (DNI) Number</SIT>
+              <SIT Geo = "AUS">Australia Tax File Number</SIT>
+              <SIT Geo = "AUS">Australia Passport Number</SIT>
+              <SIT Geo = "AUS">Australia Driver's License Number</SIT> 
+              <SIT Geo = "EUR">Belgium National Number</SIT>
+              <SIT Geo = "LAM">Brazil National ID Card (RG)</SIT>
+              <SIT Geo = "LAM">Brazil CPF Number</SIT>
+              <SIT Geo = "LAM">Brazil Legal Entity Number (CNPJ)</SIT>
+              <SIT Geo = "CAN">Canada Passport Number</SIT>
+              <SIT Geo = "CAN">Canada Social Insurance Number</SIT>
+              <SIT Geo = "CAN">Canada Health Service Number</SIT>
+              <SIT Geo = "CAN">Canada Personal Health Identification Number (PHIN)</SIT>
+              <SIT Geo = "CAN">Canada Driver's License Number</SIT>
+              <SIT Geo = "CAN">Canada Bank Account Number</SIT>  
+              <SIT Geo = "LAM">Chile Identity Card Number</SIT>
+              <SIT Geo = "APC">China Resident Identity Card (PRC) Number</SIT>
+              <SIT Geo = "EUR">Croatia Identity Card Number</SIT>
+              <SIT Geo = "EUR">Croatia Personal Identification (OIB) Number</SIT>
+              <SIT Geo = "EUR">Czech Personal Identity Number</SIT>
+              <SIT Geo = "EUR">Denmark Personal Identification Number</SIT>  
+              <SIT Geo = "EUR">EU Social Security Number (SSN) or Equivalent ID</SIT>
+              <SIT Geo = "EUR">EU Passport Number</SIT>
+              <SIT Geo = "EUR">EU National Identification Number</SIT>
+              <SIT Geo = "EUR">EU Driver's License Number</SIT>
+              <SIT Geo = "EUR">EU Tax Identification Number (TIN)</SIT>
+              <SIT Geo = "EUR">Finland National ID</SIT>
+              <SIT Geo = "EUR">Finland Passport Number</SIT>
+              <SIT Geo = "FRA">France Social Security Number (INSEE)</SIT>
+              <SIT Geo = "FRA">France Driver's License Number</SIT>
+              <SIT Geo = "FRA">France Passport Number</SIT>
+              <SIT Geo = "FRA">France National ID Card (CNI)</SIT> 
+              <SIT Geo = "EUR">German Driver's License Number</SIT>
+              <SIT Geo = "EUR">Germany Identity Card Number</SIT>
+              <SIT Geo = "EUR">German Passport Number</SIT>           
+              <SIT Geo = "EUR">Greece National ID Card</SIT>
+              <SIT Geo = "APC">Hong Kong Identity Card (HKID) Number</SIT>
+              <SIT Geo = "IND">India Unique Identification (Aadhaar) Number</SIT>
+              <SIT Geo = "IND">India Permanent Account Number (PAN)</SIT>
+              <SIT Geo = "APC">Indonesia Identity Card (KTP) Number</SIT> 
+              <SIT Geo = "INTL">International Banking Account Number (IBAN)</SIT>
+              <SIT Geo = "EUR">Ireland Personal Public Service (PPS) Number</SIT> 
+              <SIT Geo = "APC">Israel Bank Account Number</SIT>
+              <SIT Geo = "EUR">Italy Driver's License Number</SIT>
+              <SIT Geo = "JPN">Japan Driver's License Number</SIT>
+              <SIT Geo = "JPN">Japan Bank Account Number</SIT> 
+              <SIT Geo = "JPN">Japanese Residence Card Number</SIT>
+              <SIT Geo = "JPN">Japan Passport Number</SIT> 
+              <SIT Geo = "APC">Malaysia Identity Card Number</SIT>
+              <SIT Geo = "EUR">Netherlands Citizen's Service (BSN) Number</SIT>
+              <SIT Geo = "EUR">Norway Identity Number</SIT>
+              <SIT Geo = "APC">Philippines Unified Multi-Purpose ID Number</SIT>
+              <SIT Geo = "EUR">Poland Passport</SIT>
+              <SIT Geo = "EUR">Poland National ID (PESEL)</SIT>
+              <SIT Geo = "EUR">Poland Identity Card</SIT>
+              <SIT Geo = "EUR">Portugal Citizen Card Number</SIT>
+              <SIT Geo = "APC">Singapore National Registration Identity Card (NRIC) Number</SIT>
+              <SIT Geo = "ZAF">South Africa Identification Number</SIT>
+              <SIT Geo = "KOR">South Korea Resident Registration Number</SIT>
+              <SIT Geo = "EUR">Spain Social Security Number (SSN)</SIT>
+              <SIT Geo = "EUR">Sweden Passport Number</SIT>
+              <SIT Geo = "EUR">Sweden National ID</SIT> 
+              <SIT Geo = "APC">Taiwan National ID</SIT>
+              <SIT Geo = "APC">Taiwan Resident Certificate (ARC/TARC)</SIT>
+              <SIT Geo = "APC">Taiwan Passport Number</SIT>
+              <SIT Geo = "APC">Thai Population Identification Code</SIT>
+              <SIT Geo = "APC">Turkish National Identification number</SIT>
+              <SIT Geo = "GBR">U.K. Driver's License Number</SIT>
+              <SIT Geo = "GBR">U.K. Electoral Roll Number</SIT>
+              <SIT Geo = "NAM">U.S. Bank Account Number</SIT>
+              <SIT Geo = "NAM">U.S. Driver's License Number</SIT>
+              <SIT Geo = "APC">Israel National ID</SIT>
+              <SIT Geo = "JPN">Japan Resident Registration Number</SIT>
+              <SIT Geo = "JPN">Japan Social Insurance Number (SIN)</SIT>
+              <SIT Geo = "GBR">U.K. National Health Service Number</SIT>
+              <SIT Geo = "INTL">SWIFT Code</SIT>
+              <SIT Geo = "GBR">U.K. National Insurance Number (NINO)</SIT>
+              <SIT Geo = "NAM">U.S. / U.K. Passport Number</SIT>
+              <SIT Geo = "NAM">U.S. Individual Taxpayer Identification Number (ITIN)</SIT>
+              <SIT Geo = "NAM">U.S. Social Security Number (SSN)</SIT>
+              <SIT Geo = "APC">Saudi Arabia National ID</SIT>
+
+            <SIT Geo = "AUS">Australian Company Number</SIT>
+            <SIT Geo = "EUR">Austria Value Added Tax (VAT) Number</SIT>
+				<SIT Geo = "EUR">Ukraine Passport Number (Domestic)</SIT>
+				<SIT Geo = "EUR">Ukraine Passport Number (International)</SIT>
+            <SIT Geo = "EUR">Belgium Value Added Tax Number</SIT>
+            <SIT Geo = "AUS">New Zealand Driver License Number</SIT>
+				<SIT Geo = "AUS">New Zealand Social Welfare Number</SIT>
+				<SIT Geo = "EUR">Austria Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Luxemburg National Identification Number (Non-natural persons)</SIT>
+            <SIT Geo = "EUR">Netherlands Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Slovenia Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Italy Fiscal Code</SIT>
+				<SIT Geo = "EUR">Lithuania Personal Code</SIT>
+				<SIT Geo = "EUR">Malta Identity Card Number</SIT>
+            <SIT Geo = "EUR">Slovenia Unique Master Citizen Number</SIT>
+            <SIT Geo = "EUR">Sweden Tax Identification Number</SIT>
+				<SIT Geo = "EUR">Latvia Personal Code</SIT>
+				<SIT Geo = "EUR">Spain DNI</SIT>
+            <SIT Geo = "EUR">Finland European Health Insurance Number</SIT>
+            <SIT Geo = "FRA">France Health Insurance Number</SIT>
+            <SIT Geo = "EUR">Italy Value Added Tax Number</SIT>
+            <SIT Geo = "EUR">Hungarian Value Added Tax Number</SIT>
+				<SIT Geo = "EUR">Greek Tax identification Number</SIT>
+				<SIT Geo = "EUR">Hungary Personal Identification Number</SIT>
+            <SIT Geo = "EUR">Hungary Tax identification Number</SIT>
+            <SIT Geo = "EUR">Malta Tax ID Number</SIT>
+				<SIT Geo = "EUR">Spain Tax Identification Number</SIT>
+				<SIT Geo = "FRA">France Value Added Tax Number</SIT>
+            <SIT Geo = "EUR">Russian Passport Number (Domestic)</SIT>
+            <SIT Geo = "EUR">Russian Passport Number (International)</SIT>
+				<SIT Geo = "AUS">Australian Business Number</SIT>
+				<SIT Geo = "EUR">Polish REGON Number</SIT>
+            <SIT Geo = "EUR">Swiss Social Security Number AHV</SIT>
+            <SIT Geo = "EUR">Germany Value Added Tax Number</SIT>
+				<SIT Geo = "JPN">Japanese My Number Corporate</SIT>
+				<SIT Geo = "EUR">Netherlands Value Added Tax Number</SIT>
+            <SIT Geo = "EUR">Luxemburg National Identification Number (Natural persons)</SIT>
+            <SIT Geo = "EUR">Poland Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Austria Identity Card</SIT>
+            <SIT Geo = "EUR">Bulgaria Uniform Civil Number</SIT>
+				<SIT Geo = "EUR">Cyprus Identity Card</SIT>
+				<SIT Geo = "EUR">Cyprus Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Estonia Personal Identification Code</SIT>
+            <SIT Geo = "GBR">U.K. Unique Taxpayer Reference Number</SIT>
+				<SIT Geo = "FRA">France Tax Identification Number (numéro SPI.)</SIT>
+				<SIT Geo = "EUR">Germany Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Portugal Tax Identification Number</SIT>
+            <SIT Geo = "EUR">Romania Personal Numerical Code (CNP)</SIT>
+				<SIT Geo = "EUR">Slovakia Personal Number</SIT>
+
+            
+           </SITs>
+           <Links>
+                     <Link>
+                        <LinkText>Create a DLP policy from a template</LinkText> 
+                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Manager - DLP Actions</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                     </Link>
+            </Links>
+    </ActionItem>
+	<ActionItem ActionName = "Create customized or use default DLP Policies for Sensitive Financial Information" CheckName="DLP">
+           <ParentArea>Microsoft Information Protection</ParentArea>
+           <Area>Data Loss Prevention</Area>
+           <Name>Create customized or use default DLP Policies for Sensitive Financial Information</Name>
+           <RemediationPolicyName>MCCA Sensitive Financial Information</RemediationPolicyName>
+           <PassText>Your organization has set up DLP policies for Sensitive Financial Information</PassText>
+           <FailRecommendation>Your organization has not set up DLP policies for Sensitive Financial Information</FailRecommendation>
+           <Importance>Microsoft recommends that your organization create and manage Data Loss Prevention (DLP) policies to identify and protect sensitive financial information across Exchange Online, Microsoft Teams, SharePoint Online, and OneDrive for Business.</Importance>
+           <SITs>
+				<SIT Geo = "INTL">SWIFT Code</SIT>
+            <SIT Geo = "AUS">Australia Tax File Number</SIT>
+            <SIT Geo = "AUS">Australia Bank Account Number</SIT>
+				<SIT Geo = "INTL">Credit Card Number</SIT>
+				<SIT Geo = "CAN">Canada Bank Account Number</SIT>
+            <SIT Geo = "EUR">EU Debit Card Number</SIT>
+            <SIT Geo = "APC">Israel Bank Account Number</SIT>
+				<SIT Geo = "NAM">U.S. Bank Account Number</SIT>
+				<SIT Geo = "NAM">ABA Routing Number</SIT>
+            <SIT Geo = "JPN">Japan Bank Account Number</SIT>
+            <SIT Geo = "INTL">Azure Storage Account Key</SIT>
+            <SIT Geo = "AUS">New Zealand bank account number</SIT>
+            <SIT Geo = "AUS">New Zealand Inland Revenue number</SIT>
+           </SITs>
+           <Links>
+                     <Link>
+                        <LinkText>Create a DLP policy from a template</LinkText> 
+                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                     </Link>
+                     <Link>
+                        <LinkText>Compliance Manager - DLP Actions</LinkText> 
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                     </Link>
+            </Links>
+    </ActionItem>
+	</ImprovementActions>
+
+
+                               
+            
+

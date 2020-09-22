@@ -1,0 +1,55 @@
+	#Attributes for Policy<BR>
+     $PolicyName = '<NewPolicyName>';<BR>
+	$params = @{<BR>
+     'Name' = $PolicyName<BR>
+     'ExchangeLocation' ='All';<BR>
+     'OneDriveLocation' = 'All';<BR>
+     'SharePointLocation' = 'All';<BR>
+     'TeamsLocation' = 'All';<BR>
+     'Mode' = 'TestWithNotifications';<BR>
+     }<BR>
+	 <BR>
+	 
+	 #Create New Policy<BR>
+     new-dlpcompliancepolicy @params<BR>
+    <BR>
+	
+	#Low Volume Rule<BR>
+	$LowSensitiveInfo = @(<LowSensitiveInfoDetails>)
+	<BR>
+	$LowRulevalue = @{<BR>
+     'Name' = '<LowVolumeRuleName>';<BR>
+     'Comment' = "Helps detect the presence of information commonly considered to be subject to the compliance";<BR>
+     'Policy' = $PolicyName;<BR>
+     'ContentContainsSensitiveInformation' = $LowSensitiveInfo<BR>
+     'BlockAccess' = $false;<BR>
+     'AccessScope'='NotInOrganization';<BR>
+     'Disabled'=$false;<BR>
+     'ReportSeverityLevel' = 'Low';<BR>
+     'NotifyUser'=@('SiteAdmin', 'LastModifier', 'Owner')<BR>}
+	 <BR>
+	 <BR>
+     
+	 #High Volume Rule<BR>
+	  $HighSensitiveInfo = @(<HighSensitiveInfoDetails>)
+	 <BR>
+     $HighRulevalue = @{<BR>
+     'Name' = '<HighVolumeRuleName>';<BR>
+     'Comment' = "Helps detect the presence of information commonly considered to be subject to the compliance";<BR>
+     'Policy' = $PolicyName;<BR>
+     'ContentContainsSensitiveInformation' = $HighSensitiveInfo<BR>
+     'BlockAccess' = $false;<BR>
+     'ReportSeverityLevel' = 'High';<BR>
+     'AccessScope'='NotInOrganization';<BR>
+     'Disabled'=$false;<BR>
+     'GenerateIncidentReport'='SiteAdmin';<BR>
+     'IncidentReportContent'='All';<BR>
+     'NotifyAllowOverride'='FalsePositive,WithJustification';<BR>
+     'NotifyUser'=@('SiteAdmin', 'LastModifier', 'Owner')<BR>
+     }<BR>
+	<BR>
+	<BR>
+	 #Create Rules for Policy<BR>
+     New-dlpcompliancerule @HighRulevalue <BR>
+     New-dlpcompliancerule @LowRulevalue <BR>
+     <BR>
