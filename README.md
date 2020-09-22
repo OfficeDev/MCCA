@@ -92,8 +92,8 @@ Step 4: Generate MCCA Report
    You can also get a tailored report based on specific input parameters listed below.
 
    1.	Geolocation
-          
-          Get-MCCAReport -Geo @(1,7)
+         
+     Get-MCCAReport -Geo @(1,7)
             This will generate a report based on the geolocations entered by you.You need to input appropriate numbers from the following list corresponding to the regions. 
             Input	Region
                 1	Asia-Pacific
@@ -115,7 +115,7 @@ Step 4: Generate MCCA Report
 
    2.	Solutions
           
-          Get-MCCAReport -Solution @(1,7)
+    Get-MCCAReport -Solution @(1,7)
           This will generate a report only for the solutions entered by you. You need to input appropriate numbers from the following list corresponding to the solution. 
             Input	Solution
                 1	Data Loss Prevention
