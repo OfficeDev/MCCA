@@ -71,75 +71,34 @@ Function Invoke-MCCAConnections {
     (
         [String]$LogFile
     )
-    #Check if console is EOM or Powershell/Powershell Core
-    If (Get-Command "Connect-ExoPSSession" -ErrorAction:SilentlyContinue) {
-        
-        try {
-            $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
-            $InfoMessage = "Connecting to Security & Compliance Center"
-            Write-Host "$(Get-Date) $InfoMessage"
-            Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
 
-            Connect-IPPSSession -UserPrincipalName $userName -ErrorAction:SilentlyContinue
-
-        }
-        catch {
-            Write-Host "Error:$(Get-Date) There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time." -ForegroundColor:Red
-            $ErrorMessage = $_.ToString()
-            $StackTraceInfo = $_.ScriptStackTrace
-            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-            exit
-        }
-        try {
-            $InfoMessage = "Connecting to Exchange Online (Modern Module).."
-            Write-Host "$(Get-Date) $InfoMessage"
-            Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-            $EXOSession = New-ExoPSSession -UserPrincipalName $userName -Verbose:$false -ErrorAction:SilentlyContinue
-            Import-PSSession -Prefix EXOP $EXOSession -ErrorAction:SilentlyContinue
-        }
-        catch {
-            Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
-            $ErrorMessage = $_.ToString()
-            $StackTraceInfo = $_.ScriptStackTrace
-            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-        }
-
+    try {
+        $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
+        $InfoMessage = "Connecting to Exchange Online (Modern Module).."
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
     }
-    else {
-        try {
-            $UserCredential = Get-Credential -ErrorAction:SilentlyContinue
-            $InfoMessage = "Connecting to Security & Compliance Center"
-            Write-Host "$(Get-Date) $InfoMessage"
-            Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-            $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://ps.compliance.protection.outlook.com/powershell-liveid/ -Credential $UserCredential -Authentication Basic -AllowRedirection -ErrorAction:SilentlyContinue
-            Import-PSSession $Session  -AllowClobber -DisableNameChecking -ErrorAction:SilentlyContinue
-
-            If (Get-Command "Connect-ExchangeOnline" -ErrorAction:SilentlyContinue) {
-                try {
-                    $InfoMessage = "Connecting to Exchange Online (Modern Module).."
-                    Write-Host "$(Get-Date) $InfoMessage"
-                    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-                    Connect-ExchangeOnline -Prefix EXOP -Credential $UserCredential  -WarningAction:SilentlyContinue -ErrorAction:SilentlyContinue -ShowBanner:$false | Out-Null
-                }
-                catch {
-                    Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
-                    $ErrorMessage = $_.ToString()
-                    $StackTraceInfo = $_.ScriptStackTrace
-                    Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-                }
-                
-            }
-        }
-        catch {
-            Write-Host "Error:$(Get-Date) There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time." -ForegroundColor:Red
-            $ErrorMessage = $_.ToString()
-            $StackTraceInfo = $_.ScriptStackTrace
-            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-            exit
-        }
-
+    catch {
+        Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
+        $ErrorMessage = $_.ToString()
+        $StackTraceInfo = $_.ScriptStackTrace
+        Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
 
+    try {
+        $InfoMessage = "Connecting to Security & Compliance Center"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        Connect-IPPSSession -UserPrincipalName $userName -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+    }
+    catch {
+        Write-Host "Error:$(Get-Date) There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time." -ForegroundColor:Red
+        $ErrorMessage = $_.ToString()
+        $StackTraceInfo = $_.ScriptStackTrace
+        Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
+        throw 'There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time.'
+    }
 }
 
 enum CheckType {
