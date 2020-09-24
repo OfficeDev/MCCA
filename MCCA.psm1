@@ -9,11 +9,10 @@
 	.NOTES
 		Neha Pandey
 		Senior Software Engineer - Microsoft
-        nepande@microsoft.com
-        
+              
         Kritika Mishra
         Software Engineer - Microsoft
-        mishrak@microsoft.com      
+            
 
 
         Output report uses open source components for HTML formatting
