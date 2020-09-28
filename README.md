@@ -55,16 +55,8 @@ Step 1: Download MCCA
     
     First, you will need MCCA. Download MCCA folder to a location of your preference (Say C:\ drive)
 
-Step 2: Open PowerShell or EOM Shell 
+Step 2: Open PowerShell in administrator mode
     
-    If you are a non-MFA enabled user then you may directly run the following commands from PowerShell.
-    If you are a MFA-enabled user then you will need the Exchange Online Management Shell (http://aka.ms/exopsmodule).
-
-    •	For Non-MFA users:
-         o	Open PowerShell in administrator mode
-    •	For MFA users
-         o	Open Exchange Online Management Shell
-
 Step 3: Run MCCA 
    
     Next you need to run a set of commands to get the MCCA report.
