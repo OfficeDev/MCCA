@@ -43,9 +43,8 @@ For running the tool:
      
      1.	You must have PowerShell version 5.1 or above to run this tool.
      2.	You must have Exchange Online PowerShell module (You can follow either of the following 2 methods to download the same)
-        •	Exchange Online PowerShell V2 module that is available via the PowerShell gallery:
-                Install-Module -Name ExchangeOnlineManagement
-        •	Exchange Online PowerShell module (http://aka.ms/exopsmodule) 
+        •	Exchange Online PowerShell V2 module (v2.0.3 or higher) that is available via the PowerShell gallery:
+                Install-Module -Name ExchangeOnlineManagement (v2.0.3 or higher)
      3.	You must have appropriate role/user permissions to be able to run this tool. Refer to the ReadMe.docx
   Other roles within the organisation (not listed in the table) may not be able to run the tool or they may be able to run the tool with limited information in the final report.
 
