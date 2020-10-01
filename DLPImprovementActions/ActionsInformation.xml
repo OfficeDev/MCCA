@@ -94,7 +94,7 @@
 				<SIT Geo = "INTL">Azure Service Bus Connection String</SIT>
             <SIT Geo = "INTL">IP Address</SIT>
             <SIT Geo = "INTL">Azure Storage Account Key</SIT>
-            <SIT Geo = "INTL">Azure Service Bus Connection String</SIT>        
+                   
            </SITs>
            <Links>
                      <Link>
