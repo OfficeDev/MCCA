@@ -77,7 +77,7 @@ Function Invoke-MCCAConnections {
     
         if("$ExchangeVersion" -ne "2.0.3")
         {
-            write-host "Your Exchange Online Management module is not updated. Updating.."
+            write-host "$(Get-Date) Your Exchange Online Management module is not updated. Updating.."
             Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
         }
 
