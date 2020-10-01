@@ -50,25 +50,13 @@ For running the tool:
 
 # Install Guide	
 
-Step 1: Download MCCA
+Step 1: Open PowerShell in administrator mode
     
-    First, you will need MCCA. Download MCCA folder to a location of your preference (Say C:\ drive)
-
-Step 2: Open PowerShell in administrator mode
-    
-Step 3: Run MCCA 
+Step 2: Install MCCA 
    
-    Next you need to run a set of commands to get the MCCA report.
-    Within the console navigate to the location you unzipped the MCCA folder in Step 1
-    
-    cd C:\MCCA
+    Install-Module -Name MCCAPreview
 
-    Import MCCA
-    
-    Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-    .\RunMCCAReport.ps1
-
-Step 4: Generate MCCA Report
+Step 3: Generate MCCA Report
   
     Use the following cmdlet to generate the MCCA report.
     Get-MCCAReport
