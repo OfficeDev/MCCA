@@ -51,10 +51,7 @@ class html : MCCAOutput
     
       # Output start
       $version = $($this.VersionCheck.Version.ToString())
-      if($version = "0.0")
-      {
-          $version ="1.0"
-      }
+      
 
     $output = "<!doctype html>
     <html lang='en'>
@@ -170,8 +167,7 @@ class html : MCCAOutput
                 <div class='col-sm' style='text-align:left'>
                     <div class='row'><div><i class='fas fa-binoculars'></i></div><div class='ml-3'><strong>Microsoft Compliance Configuration Analyzer (MCCA)</strong></div></div>
                 </div>
-                <div class='col-sm' style='text-align:center'>
-                </div>
+              
                 <div class='col-sm' style='text-align:right'>
                 <button type='button' class='btn btn-primary' onclick='javascript:window.print();'>Print</button>
                  <BR/> 
@@ -190,8 +186,19 @@ class html : MCCAOutput
                             <h2 class='card-title'>$($ReportTitle)</h2>
 
                             <strong>Version $version </strong>
-                            <p> MCCA assesses your compliance posture, highlights risks and recommends remediation steps to ensure compliance with essential data protection and regulatory standards.</p>
-                           <table><tr><td>
+                            <p> MCCA assesses your compliance posture, highlights risks and recommends remediation steps to ensure compliance with essential data protection and regulatory standards.</p>"
+
+                            If($this.VersionCheck.Preview -eq $True) {
+
+                                $Output += "
+                                <div class='alert alert-warning pt-2' role='alert'>
+                                    You are running a preview version of MCCA! Preview versions may contain errors which could result in an incorrect report. Verify the results and any configuration before deploying changes.
+                                </div>
+                                
+                                "
+                            }
+
+                          $Output+= "<table><tr><td>
                             <strong>Date</strong>  </td>
                             <td><strong>: $($ReportDate)</strong>  </td>
                             </tr>
@@ -264,15 +271,7 @@ class html : MCCAOutput
             "
         }
 
-        If($this.VersionCheck.Preview -eq $True) {
-
-            $Output += "
-            <div class='alert alert-warning pt-2' role='alert'>
-                You are running a preview version of MCCA! Preview versions may contain errors which could result in an incorrect report. Verify the results and any configuration before deploying changes.
-            </div>
-            
-            "
-        }                        $Output += "</div>
+                                $Output += "</div>
                 </div>"
 
 

@@ -70,8 +70,17 @@ Function Invoke-MCCAConnections {
     (
         [String]$LogFile
     )
-
+   
+    
     try {
+        $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" | Sort-Object Version -Desc)[0].Version
+    
+        if("$ExchangeVersion" -ne "2.0.3")
+        {
+            write-host "Your Exchange Online Management module is not updated. Updating.."
+            Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
+        }
+
         $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
         $InfoMessage = "Connecting to Exchange Online (Modern Module).."
         Write-Host "$(Get-Date) $InfoMessage"
@@ -1266,11 +1275,12 @@ function Invoke-MCCAVersionCheck {
     $Preview = $False
 
     try {
-        $MCCAVersion = (Get-Module MCCA | Sort-Object Version -Desc)[0].Version
+        $MCCAVersion = (Get-InstalledModule MCCA | Sort-Object Version -Desc)[0].Version
+        
     }
     catch {
-        $MCCAVersion = (Get-Module MCCAPreview | Sort-Object Version -Desc)[0].Version
-
+        $MCCAVersion = (Get-InstalledModule MCCAPreview | Sort-Object Version -Desc)[0].Version
+        
         if ($MCCAVersion) {
             $Preview = $True
         }
@@ -1287,7 +1297,7 @@ function Invoke-MCCAVersionCheck {
     If ($PSGalleryVersion -gt $MCCAVersion) {
         $Updated = $False
         If ($Terminate) {
-            Throw "MCCA is out of date. Your version is $MCCAVersion and the published version is $PSGalleryVersion. Run Update-Module MCCA or run with -NoUpdate."
+            Throw "MCCA is out of date. Your version is $MCCAVersion and the published version is $PSGalleryVersion. Run Update-Module MCCA ."
         }
         else {
             Write-Host "$(Get-Date) MCCA is out of date. Your version: $($MCCAVersion) published version is $($PSGalleryVersion)"
