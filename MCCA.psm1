@@ -1275,7 +1275,7 @@ function Invoke-MCCAVersionCheck {
     $Preview = $False
 
     try {
-        $MCCAVersion = (Get-InstalledModule MCCA | Sort-Object Version -Desc)[0].Version
+        $MCCAVersion = (Get-InstalledModule MCCA -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
         
     }
     catch {
