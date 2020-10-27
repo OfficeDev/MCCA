@@ -82,7 +82,7 @@ Function Invoke-MCCAConnections {
         {
             # EOM(Exchange Online Management) is not installed
             $ExchangeVersion = "Error"
-            write-host "$(Get-Date) Your Exchange Online Management module is not installed. Installing.."
+            write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
             Install-Module -Name "ExchangeOnlineManagement" -force
         }
     
