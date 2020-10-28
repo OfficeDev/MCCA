@@ -122,7 +122,10 @@ We use the following open source components in order to generate the report:
 
 # Frequently Asked Questions (FAQ)
  Please refer to Readme.docx
- 
+
+#	This tool is awesome! How do I provide feedback and suggestions for future versions?
+Please share your feedback & suggestions with us using this [form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR-ItstQd6pNMqw0W9LKA5vxUOFNGUFgxRDJFTkg3VE5NQTQwTUVVVDNVMi4u). We are dying to hear from you. :)
+
 # Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
