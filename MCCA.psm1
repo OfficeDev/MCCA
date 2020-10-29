@@ -73,8 +73,24 @@ Function Invoke-MCCAConnections {
    
     
     try {
-        $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" | Sort-Object Version -Desc)[0].Version
+
+        try
+        {
+            $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
+        }
+        catch
+        {
+            # EOM(Exchange Online Management) is not installed
+            $ExchangeVersion = "Error"
+            write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
+            Install-Module -Name "ExchangeOnlineManagement" -force
+        }
     
+        if($ExchangeVersion -eq "Error")
+        {
+            $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" | Sort-Object Version -Desc)[0].Version
+        }
+        
         if("$ExchangeVersion" -ne "2.0.3")
         {
             write-host "$(Get-Date) Your Exchange Online Management module is not updated. Updating.."
