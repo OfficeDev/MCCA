@@ -451,7 +451,7 @@ Function Get-MCCACheckDefs {
 
     ForEach ($CheckFile in $CheckFiles) {
         if ($CheckFile.BaseName -match '^check-(.*)$' -and ($matches[1] -like "ComplianceManager")) {
-            write-host "abc"
+            #write-host "abc"
             Write-Verbose "Importing $($matches[1])"
             . $CheckFile.FullName
             $Check = New-Object -TypeName $matches[1]
