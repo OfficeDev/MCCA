@@ -39,7 +39,7 @@
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
                      </Link>
             </Links>
     </ActionItem>
@@ -107,7 +107,7 @@
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
                      </Link>
             </Links>
     </ActionItem>
@@ -144,7 +144,7 @@
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
                      </Link>
             </Links>
     </ActionItem>
@@ -301,7 +301,7 @@
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
                      </Link>
             </Links>
     </ActionItem>
@@ -339,7 +339,7 @@
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
                      </Link>
             </Links>
     </ActionItem>

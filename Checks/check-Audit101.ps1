@@ -21,7 +21,7 @@ class Audit101 : MCCACheck {
             "How to search Audit Log"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance"
             "Advanced Audit"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/advanced-audit"
             "Compliance Center - Audit Log search" = "https://compliance.microsoft.com/auditlogsearch"
-            "Compliance Manager - Audit Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Audit%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            "Compliance Manager - Audit Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Audit%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
         }
     
     }
@@ -55,7 +55,7 @@ class Audit101 : MCCACheck {
                 Write-Host "$(Get-Date) Generating Remediation Action to enable Auditing" -ForegroundColor Yellow
 
             }
-
+ 
             $this.AddConfig($ConfigObject)
             $ConfigObjectList += $ConfigObject
             $hasRemediation = $this.Config | Where-Object { $_.RemediationAction -ne ''}
