@@ -23,7 +23,7 @@ class IP101 : MCCACheck {
             "Overview of sensitivity labels "                                     = "https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide"
             "How to configure classifications for your Microsoft 365 environment" = "https://docs.microsoft.com/en-us/microsoft-365/enterprise/infoprotect-configure-classification?view=o365-worldwide"
             "Compliance Center - Information Protection"                         = "https://compliance.microsoft.com/informationprotection"
-            "Compliance Manager - IP Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20protection%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22OutOfscope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            "Compliance Manager - IP Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20protection%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
         }
     
     }
