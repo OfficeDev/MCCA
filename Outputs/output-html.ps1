@@ -478,12 +478,13 @@ class html : MCCAOutput
                         
                         
                         If($Check.ExpandResults -eq $True) {
-
+                             
 
                             # We should expand the results by showing a table of Config Data and Items
                             $Output +="
-                            <div class='row pl-2 pt-3'>
-                                <table class='table'>
+                            <div class='row pl-2 pt-3'>"
+                            if($Check.Control -ne "Compliance Manager")
+                           { $Output+= "  <table class='table'>
                                     <thead class='border-bottom'>
                                         <tr>"
 
@@ -613,7 +614,7 @@ class html : MCCAOutput
                             $Output +="
                                     </tbody>
                                 </table>"
-                                
+                            }
                             # If any links exist
                             If($Check.Links)
                             {
