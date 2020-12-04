@@ -68,31 +68,28 @@ function Get-MCCADirectory {
 Function Invoke-MCCAConnections {
     Param
     (
+        [String]$ExchangeEnvironmentName,
         [String]$LogFile
     )
    
     
     try {
 
-        try
-        {
+        try {
             $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
         }
-        catch
-        {
+        catch {
             # EOM(Exchange Online Management) is not installed
             $ExchangeVersion = "Error"
             write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
             Install-Module -Name "ExchangeOnlineManagement" -force
         }
     
-        if($ExchangeVersion -eq "Error")
-        {
+        if ($ExchangeVersion -eq "Error") {
             $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" | Sort-Object Version -Desc)[0].Version
         }
         
-        if("$ExchangeVersion" -ne "2.0.3")
-        {
+        if ("$ExchangeVersion" -ne "2.0.3") {
             write-host "$(Get-Date) Your Exchange Online Management module is not updated. Updating.."
             Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
         }
@@ -101,7 +98,7 @@ Function Invoke-MCCAConnections {
         $InfoMessage = "Connecting to Exchange Online (Modern Module).."
         Write-Host "$(Get-Date) $InfoMessage"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName #-ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
@@ -111,10 +108,23 @@ Function Invoke-MCCAConnections {
     }
 
     try {
+        switch ($ExchangeEnvironmentName) {
+            O365China {  }
+            O365GermanyCloud { $ConnectionUri = 'https://ps.compliance.protection.outlook.de/' }
+            O365USGovDoD { $ConnectionUri = 'https://l5.ps.compliance.protection.office365.us/powershell-liveid/' }
+            O365USGovGCCHigh { $ConnectionUri = 'https://ps.compliance.protection.office365.us/powershell-liveid/' }
+            Default { $ConnectionUri = '' }
+        }
+
         $InfoMessage = "Connecting to Security & Compliance Center"
         Write-Host "$(Get-Date) $InfoMessage"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        Connect-IPPSSession -UserPrincipalName $userName -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+        if ($ConnectionUri -eq '') {
+            Connect-IPPSSession -UserPrincipalName $userName -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+        }
+        else {
+            Connect-IPPSSession -UserPrincipalName $userName -ConnectionUri $ConnectionUri -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+        }
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time." -ForegroundColor:Red
@@ -358,23 +368,23 @@ Function Get-MCCACheckDefs {
     #Creating DLP check objects for each improvement actions
 
     #read xml doc
-    if($($Collection["GetRequiredSolution"]) -icontains "DLP"){
-    [xml]$CheckData = Get-Content "$PSScriptRoot\DLPImprovementActions\ActionsInformation.xml"
-    if ($null -eq $CheckData -or $CheckData -eq "") {
-        Write-Host "$(Get-Date) ActionsInformation.xml file does not exist/is corrupt in $PSScriptRoot\DLPImprovementActions\ActionsInformation.xml." -ForegroundColor Orange           
-    }
+    if ($($Collection["GetRequiredSolution"]) -icontains "DLP") {
+        [xml]$CheckData = Get-Content "$PSScriptRoot\DLPImprovementActions\ActionsInformation.xml"
+        if ($null -eq $CheckData -or $CheckData -eq "") {
+            Write-Host "$(Get-Date) ActionsInformation.xml file does not exist/is corrupt in $PSScriptRoot\DLPImprovementActions\ActionsInformation.xml." -ForegroundColor Orange           
+        }
 
-    if ($null -ne $DLPCheckFileName -or $DLPCheckFileName -ne "") {
-        Write-Verbose "Importing DLP"
-        . $DLPCheckFileName
-        foreach ($Item in $CheckData.ImprovementActions.ActionItem) {
-            #List of SIT
-            $ListOfSIT = @()
-            $AllSITS = $Item.SITs.SIT
+        if ($null -ne $DLPCheckFileName -or $DLPCheckFileName -ne "") {
+            Write-Verbose "Importing DLP"
+            . $DLPCheckFileName
+            foreach ($Item in $CheckData.ImprovementActions.ActionItem) {
+                #List of SIT
+                $ListOfSIT = @()
+                $AllSITS = $Item.SITs.SIT
 
             
-            #Adding custom SITS
-      <#      if($($Collection["GetDLPCustomSIT"]) -ne "Error")
+                #Adding custom SITS
+                <#      if($($Collection["GetDLPCustomSIT"]) -ne "Error")
             {
                 $CustomSIT = $($Collection["GetDLPCustomSIT"]).Name
                 foreach ($sit in $CustomSIT) {
@@ -383,70 +393,67 @@ Function Get-MCCACheckDefs {
             }
     #>
 
-            if($($Collection["GetOrganisationRegion"]) -eq "Error")
-            {
-                foreach ($sit in $AllSITS) {
-                    $ListOfSIT += $sit.InnerText
-                }
-            }
-            else
-            {
-                foreach ($sit in $AllSITS) {
-                    if($($Collection["GetOrganisationRegion"]) -contains $($sit.Geo))
-                    {
+                if ($($Collection["GetOrganisationRegion"]) -eq "Error") {
+                    foreach ($sit in $AllSITS) {
                         $ListOfSIT += $sit.InnerText
                     }
                 }
+                else {
+                    foreach ($sit in $AllSITS) {
+                        if ($($Collection["GetOrganisationRegion"]) -contains $($sit.Geo)) {
+                            $ListOfSIT += $sit.InnerText
+                        }
+                    }
 
+                }
+    
+                #Hash table of links
+                $LinksInfo = @{}
+                $AllLinks = $Item.Links.Link
+                foreach ($url in $AllLinks) {
+                    $LinksInfo[$url.LinkText] = $url.ActualURL
+                }
+                $InfoParams = @{}
+                $InfoParams["Control"] = $Item.CheckName
+                $InfoParams["ParentArea"] = $Item.ParentArea
+                $InfoParams["Area"] = $Item.Area
+                $InfoParams["Name"] = $Item.Name
+                $InfoParams["RemediationPolicyName"] = $Item.RemediationPolicyName
+                $InfoParams["PassText"] = $Item.PassText
+                $InfoParams["FailRecommendation"] = $Item.FailRecommendation
+                $InfoParams["Importance"] = $Item.Importance
+                $InfoParams["SIT"] = $ListOfSIT
+                $InfoParams["Links"] = $LinksInfo
+                $Check = New-Object -TypeName "DLP" -ArgumentList $InfoParams
+                # Set the MCCAParams
+                $Check.MCCAParams = $MCCAParams
+                $Check.LogFile = $LogFile
+    
+                $Checks += $Check
             }
     
-            #Hash table of links
-            $LinksInfo = @{}
-            $AllLinks = $Item.Links.Link
-            foreach ($url in $AllLinks) {
-                $LinksInfo[$url.LinkText] = $url.ActualURL
-            }
-            $InfoParams = @{}
-            $InfoParams["Control"] = $Item.CheckName
-            $InfoParams["ParentArea"] = $Item.ParentArea
-            $InfoParams["Area"] = $Item.Area
-            $InfoParams["Name"] = $Item.Name
-            $InfoParams["RemediationPolicyName"] = $Item.RemediationPolicyName
-            $InfoParams["PassText"] = $Item.PassText
-            $InfoParams["FailRecommendation"] = $Item.FailRecommendation
-            $InfoParams["Importance"] = $Item.Importance
-            $InfoParams["SIT"] = $ListOfSIT
-            $InfoParams["Links"] = $LinksInfo
-            $Check = New-Object -TypeName "DLP" -ArgumentList $InfoParams
-            # Set the MCCAParams
-            $Check.MCCAParams = $MCCAParams
-            $Check.LogFile = $LogFile
-    
-            $Checks += $Check
         }
-    
     }
-}
 
 
     # Creating Non-DLP check objects for each improvement actions
     ForEach ($CheckFile in $CheckFiles) {
         if ($CheckFile.BaseName -match '^check-(.*)$' -and ($matches[1] -notlike "DLP")) {
-            $solutioname=$matches[1]
-            $length=$solutioname.length
-            $solutioname=$solutioname.substring(0,$length-3)
+            $solutioname = $matches[1]
+            $length = $solutioname.length
+            $solutioname = $solutioname.substring(0, $length - 3)
             
-            if (($null -ne $($Collection["GetRequiredSolution"]))-and ($($Collection["GetRequiredSolution"]) -icontains "$solutioname")) {
-            Write-Verbose "Importing $($matches[1])"
-            . $CheckFile.FullName
-            $Check = New-Object -TypeName $matches[1]
-            # Set the MCCAParams
-            $Check.MCCAParams = $MCCAParams
-            $Check.LogFile = $LogFile
-            $Checks += $Check
-        }
+            if (($null -ne $($Collection["GetRequiredSolution"])) -and ($($Collection["GetRequiredSolution"]) -icontains "$solutioname")) {
+                Write-Verbose "Importing $($matches[1])"
+                . $CheckFile.FullName
+                $Check = New-Object -TypeName $matches[1]
+                # Set the MCCAParams
+                $Check.MCCAParams = $MCCAParams
+                $Check.LogFile = $LogFile
+                $Checks += $Check
+            }
         
-    }
+        }
     }
 
     ForEach ($CheckFile in $CheckFiles) {
@@ -461,9 +468,9 @@ Function Get-MCCACheckDefs {
             $Checks += $Check
         
         
+        }
     }
-    }
-    $Checks = $Checks | Sort-Object -Property @{ expression='ParentArea' ; descending=$true}, @{expression='Area' ;descending=$false}
+    $Checks = $Checks | Sort-Object -Property @{ expression = 'ParentArea' ; descending = $true }, @{expression = 'Area' ; descending = $false }
 
     Return $Checks
 }
@@ -650,7 +657,7 @@ Function Get-CommunicationComplianceSettings {
         Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
     catch {
-        $Collection["GetSupervisoryReviewPolicyV2"]  = "Error"
+        $Collection["GetSupervisoryReviewPolicyV2"] = "Error"
         $Collection["GetSupervisoryReviewOverallProgressReport"] = "Error"
         Write-Host "Error:$(Get-Date) There was an issue in fetching Communication Compliance information. Please try running the tool again after some time." -ForegroundColor:Red
         $ErrorMessage = $_.ToString()
@@ -803,48 +810,44 @@ Function Get-OrganisationRegion {
     )
     
     
-        try {
-            [System.Collections.ArrayList]$WarnMessage = @()
-            [System.Collections.ArrayList] $RegionNamesList = @()
-            $Collection["GetOrganisationConfig"] = Get-EXOPOrganizationConfig -ErrorAction:SilentlyContinue
+    try {
+        [System.Collections.ArrayList]$WarnMessage = @()
+        [System.Collections.ArrayList] $RegionNamesList = @()
+        $Collection["GetOrganisationConfig"] = Get-EXOPOrganizationConfig -ErrorAction:SilentlyContinue
             
-            if($($GeoList.Count) -gt 0)
-            {
-               $Collection["GetOrganisationRegion"] = $GeoList
-               $Collection["GetOrganisationRegion"].add("INTL") | out-null
-            }
-            else
-            {
-                $RegionsList = $Collection["GetOrganisationConfig"].AllowedMailboxRegions 
-                foreach ($region in $RegionsList) {
+        if ($($GeoList.Count) -gt 0) {
+            $Collection["GetOrganisationRegion"] = $GeoList
+            $Collection["GetOrganisationRegion"].add("INTL") | out-null
+        }
+        else {
+            $RegionsList = $Collection["GetOrganisationConfig"].AllowedMailboxRegions 
+            foreach ($region in $RegionsList) {
                 $RegionName = $($region.Split("="))[0]
                 $RegionName = $RegionName.ToUpper()
                 $RegionNamesList.add($RegionName) | Out-Null
-                }
-                $Collection["GetOrganisationRegion"] = $RegionNamesList
-                $Collection["GetOrganisationRegion"].add("INTL") | out-null
             }
-            Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+            $Collection["GetOrganisationRegion"] = $RegionNamesList
+            $Collection["GetOrganisationRegion"].add("INTL") | out-null
+        }
+        Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
         
             
+    }
+    catch {
+        $Collection["GetOrganisationConfig"] = "Error"
+        if ($($GeoList.Count) -gt 0) {
+            $Collection["GetOrganisationRegion"] = $GeoList
+            $Collection["GetOrganisationRegion"].add("INTL") | out-null
         }
-        catch {
-            $Collection["GetOrganisationConfig"] = "Error"
-            if($($GeoList.Count) -gt 0)
-            {
-               $Collection["GetOrganisationRegion"] = $GeoList
-               $Collection["GetOrganisationRegion"].add("INTL") | out-null
-            }
-            else
-            {
-                $Collection["GetOrganisationRegion"] = "Error"
-                Write-Host "Warning:$(Get-Date) There was an issue in fetching your tenant's geolocation. The generated report will have recommendations for all geos across the globe." -ForegroundColor:Yellow
+        else {
+            $Collection["GetOrganisationRegion"] = "Error"
+            Write-Host "Warning:$(Get-Date) There was an issue in fetching your tenant's geolocation. The generated report will have recommendations for all geos across the globe." -ForegroundColor:Yellow
             
-            }
-            $ErrorMessage = $_.ToString()
-            $StackTraceInfo = $_.ScriptStackTrace
-            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue      
         }
+        $ErrorMessage = $_.ToString()
+        $StackTraceInfo = $_.ScriptStackTrace
+        Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue      
+    }
     
         
     Return $Collection
@@ -858,25 +861,23 @@ Function Get-PersonalizedSolution {
         [System.Collections.ArrayList] $SolutionList
     )
        
-            [System.Collections.ArrayList] $SolutionsList = @()
-            if($($SolutionList.Count) -gt 0)
-            {
-               $Collection["GetRequiredSolution"] = $SolutionList
-               $Collection["GetRequiredSolution"].add("INTL") | out-null
-            }
-            else
-            {
-                $SolutionTable = Get-SolutionTable
-                [int] $count = 1
-                while ($count -le 8) {
-                 $SolutionList.add($($($SolutionTable[$count]).Code)) |out-null
-                   $count = $count + 1
-                  }
+    [System.Collections.ArrayList] $SolutionsList = @()
+    if ($($SolutionList.Count) -gt 0) {
+        $Collection["GetRequiredSolution"] = $SolutionList
+        $Collection["GetRequiredSolution"].add("INTL") | out-null
+    }
+    else {
+        $SolutionTable = Get-SolutionTable
+        [int] $count = 1
+        while ($count -le 8) {
+            $SolutionList.add($($($SolutionTable[$count]).Code)) | out-null
+            $count = $count + 1
+        }
 
-                $Collection["GetRequiredSolution"] = $SolutionsList
-                $Collection["GetRequiredSolution"].add("INTL") | out-null
-            }
-      Return $Collection
+        $Collection["GetRequiredSolution"] = $SolutionsList
+        $Collection["GetRequiredSolution"].add("INTL") | out-null
+    }
+    Return $Collection
 }
                
 # Get user configurations
@@ -890,55 +891,63 @@ Function Get-MCCACollection {
     $Collection = @{}
 
     [MCCAService]$Collection["Services"] = [MCCAService]::DLP
-    try{
+    try {
         Write-EXOPAdminAuditLog -Comment "MCCA Started at- $(Get-Date)"
 
-    }catch{
+    }
+    catch {
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
         Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
-    if($SolutionList -icontains "DLP")
-    {$InfoMessage = "Getting DLP Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-DataLossPreventionSettings -Collection $Collection -LogFile $LogFile}
+    if ($SolutionList -icontains "DLP") {
+        $InfoMessage = "Getting DLP Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-DataLossPreventionSettings -Collection $Collection -LogFile $LogFile
+    }
 
-    if($SolutionList -icontains "IP")
-    {$InfoMessage = "Getting Information Protection Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-InformationProtectionSettings -Collection $Collection -LogFile $LogFile}
+    if ($SolutionList -icontains "IP") {
+        $InfoMessage = "Getting Information Protection Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-InformationProtectionSettings -Collection $Collection -LogFile $LogFile
+    }
 
-    if($SolutionList -icontains "CC")
-    {$InfoMessage = "Getting Communication Compliance Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-CommunicationComplianceSettings -Collection $Collection -LogFile $LogFile}
+    if ($SolutionList -icontains "CC") {
+        $InfoMessage = "Getting Communication Compliance Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-CommunicationComplianceSettings -Collection $Collection -LogFile $LogFile
+    }
     
-    if(($SolutionList -icontains "IG") -or ($SolutionList -icontains "RM"))
-    {$InfoMessage = "Getting Information Governance Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-InformationGovernanceSettings -Collection $Collection -LogFile $LogFile}
+    if (($SolutionList -icontains "IG") -or ($SolutionList -icontains "RM")) {
+        $InfoMessage = "Getting Information Governance Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-InformationGovernanceSettings -Collection $Collection -LogFile $LogFile
+    }
     
-    if($SolutionList -icontains "Audit" )
-    {$InfoMessage = "Getting Audit Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-AuditSettings -Collection $Collection -LogFile $LogFile}
+    if ($SolutionList -icontains "Audit" ) {
+        $InfoMessage = "Getting Audit Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-AuditSettings -Collection $Collection -LogFile $LogFile
+    }
 
-    if($SolutionList -icontains "eDiscovery")
-    {$InfoMessage = "Getting eDiscovery Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-eDiscoverySettings -Collection $Collection -LogFile $LogFile}
+    if ($SolutionList -icontains "eDiscovery") {
+        $InfoMessage = "Getting eDiscovery Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-eDiscoverySettings -Collection $Collection -LogFile $LogFile
+    }
 
-    if($SolutionList -icontains "IRM")
-    {$InfoMessage = "Getting Insider Risk Management Settings"
-    Write-Host "$(Get-Date) $InfoMessage"
-    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    $Collection = Get-InsiderRiskManagementSettings -Collection $Collection -LogFile $LogFile}
+    if ($SolutionList -icontains "IRM") {
+        $InfoMessage = "Getting Insider Risk Management Settings"
+        Write-Host "$(Get-Date) $InfoMessage"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Collection = Get-InsiderRiskManagementSettings -Collection $Collection -LogFile $LogFile
+    }
 
     $InfoMessage = "Getting Accepted Domains"
     Write-Host "$(Get-Date) $InfoMessage"
@@ -965,7 +974,7 @@ Function Get-MCCACollection {
 
 
 Function Get-MCCAReport {
-<#
+    <#
     
         .SYNOPSIS
             The Microsoft Compliance Configuration Analyzer (MCCA)
@@ -1036,8 +1045,9 @@ Function Get-MCCAReport {
     Param(
         [CmdletBinding()]
         [Switch]$NoVersionCheck,    
-        [System.Collections.ArrayList] $Geo=@(),
-        [System.Collections.ArrayList] $Solution=@(),
+        [System.Collections.ArrayList] $Geo = @(),
+        [System.Collections.ArrayList] $Solution = @(),
+        [string][validateset('O365China', 'O365Default', 'O365GermanyCloud', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
         $Collection
     )
     
@@ -1059,8 +1069,7 @@ Function Get-MCCAReport {
         Write-Host "$(Get-Date) Log file cannot be created." -ForegroundColor:Red
     }
     Write-Log -MachineInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-    if(($(Get-GeoAcceptance -Geo $Geo) -eq $false ) -and ($(Get-SolutionAcceptance -Solution $Solution) -eq $false))
-    {     
+    if (($(Get-GeoAcceptance -Geo $Geo) -eq $false ) -and ($(Get-SolutionAcceptance -Solution $Solution) -eq $false)) {     
         Show-GeoOptions
         Show-SolutionOptions 
         return
@@ -1068,55 +1077,50 @@ Function Get-MCCAReport {
     #Get actual region names
     
     [System.Collections.ArrayList] $GeoList = @()
-    if(($(Get-GeoAcceptance -Geo $Geo) -eq $false ))
-    {
+    if (($(Get-GeoAcceptance -Geo $Geo) -eq $false )) {
                
         Show-GeoOptions 
         return
     }
-    else
-    {
-    #Number To Region Mapping 
-    $NumberToRegionMapping = Get-NumberRegionMappingHashTable
+    else {
+        #Number To Region Mapping 
+        $NumberToRegionMapping = Get-NumberRegionMappingHashTable
 
-    #Mapping numbers to the actual region
-    foreach ($RegionNumber in $Geo)
-    {
-        [string] $RegionName = $NumberToRegionMapping[$RegionNumber].Code
-        $GeoList.add($RegionName) | out-null  
-    }
+        #Mapping numbers to the actual region
+        foreach ($RegionNumber in $Geo) {
+            [string] $RegionName = $NumberToRegionMapping[$RegionNumber].Code
+            $GeoList.add($RegionName) | out-null  
+        }
     }
 
-        #Get actual region names
+    #Get actual region names
 
-        [System.Collections.ArrayList] $SolutionList = @()
-        if($(Get-SolutionAcceptance -Solution $Solution) -eq $false)
-        {
+    [System.Collections.ArrayList] $SolutionList = @()
+    if ($(Get-SolutionAcceptance -Solution $Solution) -eq $false) {
                   
-            Show-SolutionOptions 
-            return
-        }
-        else
-        {
-        $ShowSolutionList =""
+        Show-SolutionOptions 
+        return
+    }
+    else {
+        $ShowSolutionList = ""
         $SolutionTable = Get-SolutionTable
-        if($Solution.count -gt 0)
-        {foreach ($count in $Solution)
-        {
-            [string] $Name =  "$($($SolutionTable[$count]).Code)"
-            #write-host "$Name"
-            $SolutionList.add($Name) | out-null
-            $ShowSolutionList += "$($($SolutionTable[$count]).FullName), "
+        if ($Solution.count -gt 0) {
+            foreach ($count in $Solution) {
+                [string] $Name = "$($($SolutionTable[$count]).Code)"
+                #write-host "$Name"
+                $SolutionList.add($Name) | out-null
+                $ShowSolutionList += "$($($SolutionTable[$count]).FullName), "
+            }
+            $ShowSolutionList = $ShowSolutionList.TrimEnd(", ")
         }
-        $ShowSolutionList=$ShowSolutionList.TrimEnd(", ")
-        }else {
+        else {
             
             [int] $count = 1
-               while ($count -le 8) {
-                $SolutionList.add($($($SolutionTable[$count]).Code))|out-null
-                  $count = $count + 1
-                 }
-                 $ShowSolutionList += "All Solutions"   
+            while ($count -le 8) {
+                $SolutionList.add($($($SolutionTable[$count]).Code)) | out-null
+                $count = $count + 1
+            }
+            $ShowSolutionList += "All Solutions"   
         }
     }
     # Easy to use for quick MCCA report to HTML
@@ -1129,14 +1133,15 @@ Function Get-MCCAReport {
     
 
     try {
-        $Result = Invoke-MCCA -PerformVersionCheck $PerformVersionCheck -Collection $Collection -Output @("HTML") -GeoList $GeoList -SolutionList $SolutionList -LogFile $LogFile -ErrorAction:SilentlyContinue
+        $Result = Invoke-MCCA -PerformVersionCheck $PerformVersionCheck -Collection $Collection -Output @("HTML") -GeoList $GeoList -SolutionList $SolutionList -LogFile $LogFile -ExchangeEnvironmentName $ExchangeEnvironmentName-ErrorAction:SilentlyContinue
         $InfoMessage = "Complete! Output is in $($Result.Result)"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
         Write-Host "$(Get-Date) $InfoMessage"
-        try{
+        try {
             Write-EXOPAdminAuditLog -Comment "MCCA Completed at - $(Get-Date)"
     
-        }catch{
+        }
+        catch {
             $ErrorMessage = $_.ToString()
             $StackTraceInfo = $_.ScriptStackTrace
             Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
@@ -1169,8 +1174,8 @@ Function Invoke-MCCA {
         $Output,
         $OutputOptions,
         $Collection,
-        [System.Collections.ArrayList] $GeoList=@(),
-        [System.Collections.ArrayList] $SolutionList=@(),
+        [System.Collections.ArrayList] $GeoList = @(),
+        [System.Collections.ArrayList] $SolutionList = @(),
         [String]$LogFile
     )
     $InfoMessage = "MCCA Started"
@@ -1186,11 +1191,11 @@ Function Invoke-MCCA {
     }
     
    
-        $InfoMessage = "Establishing Connections"
-        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        Invoke-MCCAConnections -LogFile $LogFile
-        $InfoMessage = "Connections Established"
-        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+    $InfoMessage = "Establishing Connections"
+    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+    Invoke-MCCAConnections -LogFile $LogFile -ExchangeEnvironmentName $ExchangeEnvironmentName
+    $InfoMessage = "Connections Established"
+    Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     
 
 
@@ -1245,30 +1250,27 @@ Function Invoke-MCCA {
     }
 
     $TenantGeoLocations = $Collection["GetOrganisationRegion"] | Where-Object { $_ -ne "INTL" }
-            if($TenantGeoLocations -ne "Error")
-            {
-                $RegionString = ""
-                $NumberToRegionMapping = Get-NumberRegionMappingHashTable
-                foreach ($Region in $TenantGeoLocations) {
-                    foreach ($Numbers in $($NumberToRegionMapping.Keys)) {
-                        if($($NumberToRegionMapping[$Numbers].Code) -eq $Region)
-                        {
-                            if($RegionString -eq "")
-                            {
-                                $RegionString += "$($NumberToRegionMapping[$Numbers].Description)" 
-                            }
-                            else
-                            {
-                                $RegionString += ", $($NumberToRegionMapping[$Numbers].Description)" 
-                            }
-                        }
+    if ($TenantGeoLocations -ne "Error") {
+        $RegionString = ""
+        $NumberToRegionMapping = Get-NumberRegionMappingHashTable
+        foreach ($Region in $TenantGeoLocations) {
+            foreach ($Numbers in $($NumberToRegionMapping.Keys)) {
+                if ($($NumberToRegionMapping[$Numbers].Code) -eq $Region) {
+                    if ($RegionString -eq "") {
+                        $RegionString += "$($NumberToRegionMapping[$Numbers].Description)" 
                     }
-
-                }}else
-                {
-                    $RegionString = ""
-                    $RegionString +="All Geolocations"
+                    else {
+                        $RegionString += ", $($NumberToRegionMapping[$Numbers].Description)" 
+                    }
                 }
+            }
+
+        }
+    }
+    else {
+        $RegionString = ""
+        $RegionString += "All Geolocations"
+    }
     $InfoMessage = "The following report is generated for following solutions:$ShowSolutionList" 
     Write-Host "$(Get-Date) $InfoMessage" -ForegroundColor Yellow
     $InfoMessage = "The following report is for following geolocations:$RegionString"  
@@ -1403,8 +1405,7 @@ function Write-Log {
             "End time: $(Get-Date)" | Out-File $LogFile -Append -ErrorAction:SilentlyContinue
             "********************************************************************************************" | Out-File $LogFile -Append -ErrorAction:SilentlyContinue
             
-            if($($global:ErrorOccurred) -eq $true)
-            {
+            if ($($global:ErrorOccurred) -eq $true) {
                 Write-Host "Warning:$(Get-Date) The report generated may have reduced information due to errors in running the tool. These errors may occur due to multiple reasons. Please refer documentation for more details." -ForegroundColor:Yellow
             }
          
@@ -1415,8 +1416,7 @@ function Write-Log {
     }
     #Error
     if ($IsError) {
-        if($($global:ErrorOccurred) -eq $false)
-        {
+        if ($($global:ErrorOccurred) -eq $false) {
             $global:ErrorOccurred = $true
         }
         $Log_content = "$(Get-Date) ERROR: $ErrorMessage"
@@ -1454,64 +1454,63 @@ function Write-Log {
 }
 
 # Get the Number Region Mapping HashTable
-function Get-NumberRegionMappingHashTable
-{
+function Get-NumberRegionMappingHashTable {
     #Number To Region Mapping 
     $NumberToRegionMapping = @{}
     $NumberToRegionMapping[1] = New-Object -TypeName PSObject -Property @{
-        Code      = "APC"
+        Code        = "APC"
         Description = "Asia-Pacific"
     }
     $NumberToRegionMapping[2] = New-Object -TypeName PSObject -Property @{
-        Code      = "AUS"
+        Code        = "AUS"
         Description = "Australia"
     }
     $NumberToRegionMapping[3] = New-Object -TypeName PSObject -Property @{
-        Code      = "CAN"
+        Code        = "CAN"
         Description = "Canada"
     }
     $NumberToRegionMapping[4] = New-Object -TypeName PSObject -Property @{
-        Code      = "EUR"
+        Code        = "EUR"
         Description = "Europe (excl. France) / Middle East / Africa"
     }
     $NumberToRegionMapping[5] = New-Object -TypeName PSObject -Property @{
-        Code      = "FRA"
+        Code        = "FRA"
         Description = "France"
     }
     $NumberToRegionMapping[6] = New-Object -TypeName PSObject -Property @{
-        Code      = "IND"
+        Code        = "IND"
         Description = "India"
     }
     $NumberToRegionMapping[7] = New-Object -TypeName PSObject -Property @{
-        Code      = "JPN"
+        Code        = "JPN"
         Description = "Japan"
     }
     $NumberToRegionMapping[8] = New-Object -TypeName PSObject -Property @{
-        Code      = "KOR"
+        Code        = "KOR"
         Description = "Korea"
     }
     $NumberToRegionMapping[9] = New-Object -TypeName PSObject -Property @{
-        Code      = "NAM"
+        Code        = "NAM"
         Description = "North America (excl. Canada)"
     }
     $NumberToRegionMapping[10] = New-Object -TypeName PSObject -Property @{
-        Code      = "LAM"
+        Code        = "LAM"
         Description = "South America"
     }
     $NumberToRegionMapping[11] = New-Object -TypeName PSObject -Property @{
-        Code      = "ZAF"
+        Code        = "ZAF"
         Description = "South Africa"
     }
     $NumberToRegionMapping[12] = New-Object -TypeName PSObject -Property @{
-        Code      = "CHE"
+        Code        = "CHE"
         Description = "Switzerland"
     }
     $NumberToRegionMapping[13] = New-Object -TypeName PSObject -Property @{
-        Code      = "ARE"
+        Code        = "ARE"
         Description = "United Arab Emirates"
     }
     $NumberToRegionMapping[14] = New-Object -TypeName PSObject -Property @{
-        Code      = "GBR"
+        Code        = "GBR"
         Description = "United Kingdom"
     }
     
@@ -1521,8 +1520,7 @@ function Get-NumberRegionMappingHashTable
 
 
 #Check if the geo param is in right format
-function Get-GeoAcceptance
-{
+function Get-GeoAcceptance {
     param (
         $Geo
     )
@@ -1533,8 +1531,7 @@ function Get-GeoAcceptance
 }
 
 # Display options for the user to choose
-function Show-GeoOptions 
-{
+function Show-GeoOptions {
     Write-Host "Error:$(Get-Date) Please input appropriate numbers from the following list corresponding to the regions for which you wish to customize the report & run the tool again." -ForegroundColor:Red 
     #Number To Region Mapping 
     $NumberToRegionMapping = Get-NumberRegionMappingHashTable
@@ -1557,51 +1554,49 @@ function Show-GeoOptions
     
 }
 
-function Get-SolutionTable
-{
-        #Number To Region Mapping 
-        $SolutionTable = @{}
-        $SolutionTable[1] = New-Object -TypeName PSObject -Property @{
-            Code      = "DLP"
-            FullName  =  "Data Loss Prevention"
+function Get-SolutionTable {
+    #Number To Region Mapping 
+    $SolutionTable = @{}
+    $SolutionTable[1] = New-Object -TypeName PSObject -Property @{
+        Code     = "DLP"
+        FullName = "Data Loss Prevention"
          
-        }
-        $SolutionTable[2] = New-Object -TypeName PSObject -Property @{
-            Code      = "IP"
-            FullName  =  "Information Protection"
-        }
-        $SolutionTable[3] = New-Object -TypeName PSObject -Property @{
-            Code      = "IG"
-            FullName  =  "Information Governance"
-        }
-        $SolutionTable[4] = New-Object -TypeName PSObject -Property @{
-            Code      = "RM"
-            FullName  =  "Records Management"
-        }
-        $SolutionTable[5] = New-Object -TypeName PSObject -Property @{
-            Code      = "CC"
-            FullName  =  "Communication Compliance"
-        }
-        $SolutionTable[6] = New-Object -TypeName PSObject -Property @{
-            Code      = "IRM"
-            FullName  =  "Insider Risk Management"
-        }
-        $SolutionTable[7] = New-Object -TypeName PSObject -Property @{
-            Code      = "Audit"
-            FullName  =  "Audit"
-        }
-        $SolutionTable[8] = New-Object -TypeName PSObject -Property @{
-            Code      = "eDiscovery"
-            FullName  = "eDiscovery"
-        }
+    }
+    $SolutionTable[2] = New-Object -TypeName PSObject -Property @{
+        Code     = "IP"
+        FullName = "Information Protection"
+    }
+    $SolutionTable[3] = New-Object -TypeName PSObject -Property @{
+        Code     = "IG"
+        FullName = "Information Governance"
+    }
+    $SolutionTable[4] = New-Object -TypeName PSObject -Property @{
+        Code     = "RM"
+        FullName = "Records Management"
+    }
+    $SolutionTable[5] = New-Object -TypeName PSObject -Property @{
+        Code     = "CC"
+        FullName = "Communication Compliance"
+    }
+    $SolutionTable[6] = New-Object -TypeName PSObject -Property @{
+        Code     = "IRM"
+        FullName = "Insider Risk Management"
+    }
+    $SolutionTable[7] = New-Object -TypeName PSObject -Property @{
+        Code     = "Audit"
+        FullName = "Audit"
+    }
+    $SolutionTable[8] = New-Object -TypeName PSObject -Property @{
+        Code     = "eDiscovery"
+        FullName = "eDiscovery"
+    }
 
     return $SolutionTable
 }
 
 
 #Check if the geo param is in right format
-function Get-SolutionAcceptance
-{
+function Get-SolutionAcceptance {
     Param (
         $Solution
     )
@@ -1610,8 +1605,7 @@ function Get-SolutionAcceptance
     return ($($ValidSolution.Count) -eq $($Solution.Count))
 }
 
-function Show-SolutionOptions 
-{
+function Show-SolutionOptions {
   
     Write-Host "Error:$(Get-Date) Please input appropriate numbers from the following list corresponding to solution for which you wish to customize the report & run the tool again." -ForegroundColor:Red 
     $SolutionTable = Get-SolutionTable
@@ -1622,7 +1616,7 @@ function Show-SolutionOptions
     while ($count -le 8) {
         Write-Host "$count--->$($($SolutionTable[$count]).FullName)"
         $count = $count + 1
-}
+    }
 
     Write-Host "*******************************************************************************"
     Write-Host "Example: Get-MCCAReport -Geo @(1,7) -Solution @(1,7)"
