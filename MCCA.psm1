@@ -1362,7 +1362,7 @@ function Invoke-MCCAVersionCheck {
     )
 
     Write-Host "$(Get-Date) Performing MCCA Version check... "
-<#
+
     # When detected we are running the preview release
     $Preview = $False
 
@@ -1404,12 +1404,6 @@ function Invoke-MCCAVersionCheck {
         Version        = $MCCAVersion
         GalleryVersion = $PSGalleryVersion
         Preview        = $Preview
-    }#>
-    Return New-Object -TypeName PSObject -Property @{
-        Updated        = $True
-        Version        = "1.3"
-        GalleryVersion = "1.3"
-        Preview        = $false
     }
 }
 
