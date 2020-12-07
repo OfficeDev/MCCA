@@ -40,6 +40,9 @@
 #>
 [bool] $global:ErrorOccurred = $false
 
+# TelemetryEnabled set to true for customers and false for testing
+[bool] $global:TelemetryEnabled = $true
+
 function Get-MCCADirectory {
     <#
 
@@ -764,6 +767,7 @@ Function Get-AcceptedDomains {
         Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
     catch {
+        $Collection["AcceptedDomains"] = "Error"
         Write-Host "Error:$(Get-Date) There was an issue in fetching tenant name information. Please try running the tool again after some time." -ForegroundColor:Red
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
@@ -1203,6 +1207,63 @@ Function Invoke-MCCA {
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
 
+    # If Telemetry is enabled (For Customers), then collect telemetry
+    if($($global:TelemetryEnabled) -eq $true)
+    {
+        $InfoMessage = "Collecting Telemetry"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+
+        $MCCAVersion = $VersionCheck.Version.ToString()
+        if($Collection["AcceptedDomains"] == "Error")
+        {
+            $TenantName = "Error"
+        }
+        else
+        {
+            $TenantName = ($Collection["AcceptedDomains"] | Where-Object {$_.InitialDomain -eq $True}).DomainName
+        }
+        
+        
+        # Set the parameter for the URI
+        $Parameters = @{
+            MCCAVersion = $MCCAVersion
+            TenantName = $TenantName
+        } | ConvertTo-Json
+
+        try
+        {
+            # Read the URI and Function Key from csv file to trigger the Azure Function
+            $CSVObject = Import-csv "$PSScriptRoot\TelemetryProperties.csv" -ErrorAction:SilentlyContinue
+            $URI = $CSVObject[0].URI.ToString()
+            $FunctionKey = $CSVObject[0].FunctionKey.ToString()
+
+            try
+            {
+                # Set the header for the URI
+                $Headers = @{
+                    'x-functions-key' = $FunctionKey
+                }
+
+                # Call the URI
+                $ResponseMessage = Invoke-WebRequest -Uri $URI -Headers $Headers -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                   
+                Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                
+            }
+            catch
+            {
+                $ErrorMessage = $_.ToString()
+                $StackTraceInfo = $_.ScriptStackTrace
+                Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                                 
+            }                      
+        }
+        catch
+        {
+            $ErrorMessage = $_.ToString()
+            $StackTraceInfo = $_.ScriptStackTrace
+            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                 
+        }
+    }
+
 
     # Get the output modules
     $InfoMessage = "Creating Output Objects"
@@ -1301,7 +1362,7 @@ function Invoke-MCCAVersionCheck {
     )
 
     Write-Host "$(Get-Date) Performing MCCA Version check... "
-
+<#
     # When detected we are running the preview release
     $Preview = $False
 
@@ -1343,6 +1404,12 @@ function Invoke-MCCAVersionCheck {
         Version        = $MCCAVersion
         GalleryVersion = $PSGalleryVersion
         Preview        = $Preview
+    }#>
+    Return New-Object -TypeName PSObject -Property @{
+        Updated        = $True
+        Version        = "1.3"
+        GalleryVersion = "1.3"
+        Preview        = $false
     }
 }
 
