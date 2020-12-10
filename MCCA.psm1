@@ -40,6 +40,9 @@
 #>
 [bool] $global:ErrorOccurred = $false
 
+# TelemetryEnabled set to true for customers and false for testing
+[bool] $global:TelemetryEnabled = $false
+
 function Get-MCCADirectory {
     <#
 
@@ -764,6 +767,7 @@ Function Get-AcceptedDomains {
         Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
     catch {
+        $Collection["AcceptedDomains"] == "Error"
         Write-Host "Error:$(Get-Date) There was an issue in fetching tenant name information. Please try running the tool again after some time." -ForegroundColor:Red
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
@@ -1202,7 +1206,78 @@ Function Invoke-MCCA {
         $InfoMessage = "User Configurations Fetched"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
+    
+    # If Telemetry is enabled (For Customers), then collect telemetry
+    if($($global:TelemetryEnabled) -eq $true)
+    {
+        $InfoMessage = "Collecting Telemetry"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
 
+        $MCCAVersion = $VersionCheck.Version.ToString()
+
+        # Setting tenant name
+        if($Collection["AcceptedDomains"] -eq "Error")
+        {
+            $DomainName = "Error"
+        }
+        else
+        {
+            $DomainName = ($Collection["AcceptedDomains"] | Where-Object {$_.InitialDomain -eq $True}).DomainName
+        }
+
+        # Setting organization name
+        if($Collection["GetOrganisationConfig"] -eq "Error")
+        {
+            $OrganizationName = "Error"
+        }
+        else
+        {
+            $OrganizationName = $Collection["GetOrganisationConfig"].DisplayName
+        }
+        
+        # Set the parameter for the URI
+        $Parameters = @{
+            MCCAVersion = $MCCAVersion
+            Domain = $DomainName
+            Organization = $OrganizationName
+        } | ConvertTo-Json
+
+        try
+        {
+            # Pass your own TelemetryProperties.csv 
+            # Fill TelemetryProperties.csv file with the Azure Function URI and Function key
+
+            # Read the URI and Function Key from csv file to trigger the Azure Function
+            $CSVObject = Import-csv "$PSScriptRoot\TelemetryProperties.csv" -ErrorAction:SilentlyContinue
+            $URI = $CSVObject[0].URI.ToString()
+            $FunctionKey = $CSVObject[0].FunctionKey.ToString()
+
+            try
+            {
+                # Set the header for the URI
+                $Headers = @{
+                    'x-functions-key' = $FunctionKey
+                }
+
+                # Call the URI
+                $ResponseMessage = Invoke-WebRequest -Uri $URI -Headers $Headers -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                   
+                Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                
+            }
+            catch
+            {
+                $ErrorMessage = $_.ToString()
+                $StackTraceInfo = $_.ScriptStackTrace
+                Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                                 
+            }                      
+        }
+        catch
+        {
+            $ErrorMessage = $_.ToString()
+            $StackTraceInfo = $_.ScriptStackTrace
+            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                 
+        }
+    }
 
     # Get the output modules
     $InfoMessage = "Creating Output Objects"
