@@ -41,12 +41,59 @@ You will be able to run this tool without an E5 subscription or M365 E5 Complian
 
 For running the tool:
      
-     1.	You must have PowerShell version 5.1 or above to run this tool.
-     2.	You must have Exchange Online PowerShell module (You can follow either of the following 2 methods to download the same)
-        •	Exchange Online PowerShell V2 module (v2.0.3 or higher) that is available via the PowerShell gallery:
-                Install-Module -Name ExchangeOnlineManagement (v2.0.3 or higher)
-     3.	You must have appropriate role/user permissions to be able to run this tool. Refer to the ReadMe.docx
-  Other roles within the organisation (not listed in the table) may not be able to run the tool or they may be able to run the tool with limited information in the final report.
+
+1.  You must have PowerShell version 5.1 or above to run this tool.
+
+2.  You must have Exchange Online PowerShell module (You can follow
+    either of the following 2 methods to download the same)
+
+  -   Exchange Online PowerShell V2 module that is available via the
+    PowerShell gallery:
+
+  > Install-Module -Name ExchangeOnlineManagement
+
+  -   Exchange Online PowerShell module (<http://aka.ms/exopsmodule>)
+
+3.  You must have appropriate role/user permissions to be able to run
+    this tool. The following table provides details of which roles will
+    have access to which sections of the report.
+
+Other roles within the organisation (not listed in the table below) may
+not be able to run the tool or they may be able to run the tool with
+limited information in the final report.
+
+
+|User Role                           |MIP      |            | MIG          |                      |Insider Risk |     |Discovery & Response |         |
+|------------------------------------|---------|------------|--------------|----------------------|---------|--------|-----------|---------------- |
+|                                    |**DLP**  |**IP**      |**IG**        |**RM**                |**IRM**  |**CC**  |**Audit**  |**eDiscovery** |
+|Azure Information Protection admin  |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No <sup>4</sup>    |No |
+|Compliance admin                    |Yes      |Yes         |Yes           |Yes                   |Yes      |Yes     |Yes        |Yes |
+|Compliance Data Admin               |Yes      |Yes<sup>2</sup>      |Yes           |Yes                   |Yes      |Yes<sup>3</sup>  |Yes<sup>5</sup>     |No |
+|Customer Lockbox access approver    |No       |No          |No            |No                    |No       |No      |No         |No |
+|Exchange Admin                      |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No<sup>4</sup>      |No |
+|Global reader                       |Yes      |Yes         |Yes           |Yes                   |No       |No      |Yes        |No |
+|Helpdesk admin                      |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No<sup>4</sup>      |No |
+|Non-Admin User                      |No       |No          |No            |No                    |No       |No      |No         |No |
+|Reports reader                      |No       |No          |No            |No                    |No       |No      |No         |No |
+|Security admin                      |Yes      |Yes<sup>2</sup>      |No            |No                    |No       |No      |Yes<sup>5</sup>     |No |
+|Security operator                   |Yes      |No          |No            |No                    |No       |No      |Yes<sup>5</sup>     |No |
+|Security reader                     |Yes      |Yes<sup>2</sup>  |No            |No                    |No       |No      |Yes<sup>5</sup>     |No |
+|Service support admin               |No       |No          |No            |No                    |No       |No      |No         |No |
+|SharePoint admin                    |No       |No          |No            |No                    |No       |No      |No         |No |
+|Teams service admin                 |No       |No          |No            |No                    |No       |No      |No         |No |
+|User admin                          |No       |No          |No            |No                    |No       |No      |No         |No |
+
+Exceptions:
+
+<sup>1</sup> User will not be able generate report for IP apart from "Use IRM for Exchange Online" section.
+
+<sup>2</sup> User will be able generate report for IP apart from "Use IRM for Exchange Online" section.
+
+<sup>3</sup> User will be able generate report for IP apart from "Enable Communication Compliance in O365" section.
+
+<sup>4</sup> User will not be able generate report for IP apart from "Enable Auditing in Office 365" section.
+
+<sup>5</sup> User will be able generate report for IP apart from "Enable Auditing in Office 365" section.
 
 # Install Guide	
 
