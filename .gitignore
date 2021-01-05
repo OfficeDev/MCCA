@@ -353,4 +353,4 @@ MigrationBackup/
 *.psd1
 
 #Testrun file
-
+TelemetryProperties.csv
