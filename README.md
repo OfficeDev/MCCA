@@ -41,12 +41,59 @@ You will be able to run this tool without an E5 subscription or M365 E5 Complian
 
 For running the tool:
      
-     1.	You must have PowerShell version 5.1 or above to run this tool.
-     2.	You must have Exchange Online PowerShell module (You can follow either of the following 2 methods to download the same)
-        •	Exchange Online PowerShell V2 module (v2.0.3 or higher) that is available via the PowerShell gallery:
-                Install-Module -Name ExchangeOnlineManagement (v2.0.3 or higher)
-     3.	You must have appropriate role/user permissions to be able to run this tool. Refer to the ReadMe.docx
-  Other roles within the organisation (not listed in the table) may not be able to run the tool or they may be able to run the tool with limited information in the final report.
+
+1.  You must have PowerShell version 5.1 or above to run this tool.
+
+2.  You must have Exchange Online PowerShell module (You can follow
+    either of the following 2 methods to download the same)
+
+    * Exchange Online PowerShell V2 module that is available via the
+    PowerShell gallery:
+
+    > Install-Module -Name ExchangeOnlineManagement
+
+    * Exchange Online PowerShell module (<http://aka.ms/exopsmodule>)
+
+3.  You must have appropriate role/user permissions to be able to run
+    this tool. The following table provides details of which roles will
+    have access to which sections of the report.
+
+Other roles within the organisation (not listed in the table below) may
+not be able to run the tool or they may be able to run the tool with
+limited information in the final report.
+
+
+|User Role                           |MIP      |            | MIG          |                      |Insider Risk |     |Discovery & Response |         |
+|------------------------------------|---------|------------|--------------|----------------------|---------|--------|-----------|---------------- |
+|                                    |**DLP**  |**IP**      |**IG**        |**RM**                |**IRM**  |**CC**  |**Audit**  |**eDiscovery** |
+|Azure Information Protection admin  |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No <sup>4</sup>    |No |
+|Compliance admin                    |Yes      |Yes         |Yes           |Yes                   |Yes      |Yes     |Yes        |Yes |
+|Compliance Data Admin               |Yes      |Yes<sup>2</sup>      |Yes           |Yes                   |Yes      |Yes<sup>3</sup>  |Yes<sup>5</sup>     |No |
+|Customer Lockbox access approver    |No       |No          |No            |No                    |No       |No      |No         |No |
+|Exchange Admin                      |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No<sup>4</sup>      |No |
+|Global reader                       |Yes      |Yes         |Yes           |Yes                   |No       |No      |Yes        |No |
+|Helpdesk admin                      |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No<sup>4</sup>      |No |
+|Non-Admin User                      |No       |No          |No            |No                    |No       |No      |No         |No |
+|Reports reader                      |No       |No          |No            |No                    |No       |No      |No         |No |
+|Security admin                      |Yes      |Yes<sup>2</sup>      |No            |No                    |No       |No      |Yes<sup>5</sup>     |No |
+|Security operator                   |Yes      |No          |No            |No                    |No       |No      |Yes<sup>5</sup>     |No |
+|Security reader                     |Yes      |Yes<sup>2</sup>  |No            |No                    |No       |No      |Yes<sup>5</sup>     |No |
+|Service support admin               |No       |No          |No            |No                    |No       |No      |No         |No |
+|SharePoint admin                    |No       |No          |No            |No                    |No       |No      |No         |No |
+|Teams service admin                 |No       |No          |No            |No                    |No       |No      |No         |No |
+|User admin                          |No       |No          |No            |No                    |No       |No      |No         |No |
+
+Exceptions:
+
+<sup>1</sup> User will not be able generate report for IP apart from "Use IRM for Exchange Online" section.
+
+<sup>2</sup> User will be able generate report for IP apart from "Use IRM for Exchange Online" section.
+
+<sup>3</sup> User will be able generate report for IP apart from "Enable Communication Compliance in O365" section.
+
+<sup>4</sup> User will not be able generate report for IP apart from "Enable Auditing in Office 365" section.
+
+<sup>5</sup> User will be able generate report for IP apart from "Enable Auditing in Office 365" section.
 
 # Install Guide	
 
@@ -120,8 +167,158 @@ We use the following open source components in order to generate the report:
     •	clipboard.js v1.5.3, MIT License - https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js
 
 
-# Frequently Asked Questions (FAQ)
- Please refer to Readme.docx
+## Frequently Asked Questions (FAQ)
+
+### Will this tool make any changes to my existing settings, policies, etc.?
+
+MCCA is a diagnostic tool that is "read-only". It fetches information
+about your current configurations to generate a report but will not
+alter any of your existing configurations.
+
+### What different sections do I see in my report?
+
+The report provides you with:
+
+*   Solutions summary: It provides a break-down of statuses at a
+    solution level. Each solution has counters that tell you how many
+    recommendations are informational, require improvement and are OK.
+
+*   Solution drill-down: Following solutions summary, each solution has
+    a separate section that provides detailed information about
+    configurations & their status.
+
+    *   Each solution may have 1 or more improvement actions which will
+        further be broken down into finer configurations. MCCA will
+        provide you a status both at an improvement action level & also
+        for finer configurations.
+
+### Can I generate report for specific sections within the report?
+
+Yes, you can generate report for specific sections within the report.
+You can use the solution input parameter `--solution <input solution
+number>` to generate the report for a specific solution from the
+following list:
+
+|Input  |Solution |
+|-------|-------------------------- |
+|1      |Data Loss Prevention |
+|2      |Information Protection |
+|3      |Information Governance |
+|4      |Records Management |
+|5      |Communication Compliance |
+|6      |Insider Risk Management |
+|7      |Audit |
+|8      |eDiscovery |
+
+For e.g. If you wanted to create report for the DLP solution only then
+you can run the following command:
+
+```powershell
+Get-MCCAReport --solution @(1)
+```
+
+You can learn more about this input parameter in the Input Parameters
+section within the Install Guide above.
+
+### What does Recommendation, Informational, Improvement & OK messages mean?
+
+All recommendations provided by MCCA report are categorized in 3 types
+of status:
+
+*  Recommendations: These are best practices that your tenant
+    should follow.\
+    *Note: The support for these messages is limited in the current
+    version so you may not see any recommendations in your report.*
+
+*  Informational: These messages/statuses represent information
+    in your current environment & are non-actionable in nature.
+
+*  Improvement: These messages/statuses highlight areas that
+    need your attention & are actionable. Sections which are marked as
+    "Improvement" would generally have 1 or more configurations marked
+    as "Improvement".
+
+*  OK: These messages/statuses indicate that a given area is configured efficiently to meet data protection baselines.
+
+### Why don't I see my tenant's name on the report?
+
+Due to a technical error, the tool would not have been able to fetch
+your tenant's name. In the event of such error, you may not see your
+tenant name on the report. Please try running the tool again after some
+time. If the issue persists, please reach out to us at
+[MCCAhelp\@microsoft.com](mailto:mecahelp@microsoft.com) and/or contact
+your Microsoft partner.
+
+### Why do I see "No active policy defined" when I already have policies defined?
+
+The policies created by you may be protecting a subset of information,
+workloads, user groups and/or other criteria. "No active policy defined"
+highlights the areas that are not protected by your current policies and
+need an action on your part.
+
+We provide "Remediation Scripts" which you can run from your PowerShell
+console & the required policies will automatically be set up.
+
+Please refer to "Remarks" section in your report to understand why you
+are seeing "Improvement". If you still have concerns, please reach out
+to us at [MCCAhelp\@microsoft.com](mailto:mecahelp@microsoft.com) or
+contact your Microsoft partner.
+
+### Why do I see "Policy defined but not protected on 1 or more workloads" when I already have policies defined?
+
+Often there is a case where a given area (sensitive information,
+workloads, user groups and/or other criteria) may be protected in 1 or
+more policies in your environment but would not be protected across your
+entire environment.
+
+E.g. Your current policy configurations may U.S. / U.K. Passport Number
+on SharePoint & Exchange but not on OneDrive & Teams. This puts you at
+risk.
+
+To avoid such cases, MCCA will highlight all the affected areas. You
+will need to review these and either tweak your current policies and/or
+create new ones to accommodate these areas.
+
+### What are remediation scripts?
+
+When MCCA identifies if your current policies have zero coverage for
+certain sensitive information types, it provides you with "Remediation
+Scripts" to help you avoid the hassle of manually setting up these
+policies. These policies will be created in *Test* mode and you will
+still have review & enable it manually.
+
+You should review script parameters & then run these scripts from your *Windows PowerShell ISE* console.
+You would need to connect to [Connect to Security & Compliance Center PowerShell](https://docs.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell?view=exchange-ps) or [Connect to Exchange Online Center PowerShell](https://docs.microsoft.com/en-us/powershell/exchange/connect-to-exchange-online-powershell?view=exchange-ps) to execute these scripts. On successful execution of the scripts, the
+required policies will automatically be set up.
+
+Note: These scripts are pre-configured and may need tweaking to achieve
+best results for your organization. We are working on improving these
+scripts in future versions of this tool.
+
+### Why is the report asking me to protect Sensitive Information Types which I do not have in my environment?
+
+This version of the tool aims to protect all possible sensitive
+information types across multiple geographies and/or industries.
+
+Future versions of this tool will provide recommendations to you based
+on the nature of information you have in your environment.
+
+### Can I generate the report to get recommendations for Sensitive Information Types applicable to my tenant's geographic regions?
+
+Yes, you can generate the report for specific geographic regions.
+
+By default, the tool will generate a report based on the geolocation for
+your tenant. If you wish to run the report for specific geos then while
+running the `Get-MCCAReport` cmdlet, you can input an extra parameter by
+`--Geo` followed by 1 or more region numbers supported by MCCA.
+
+Please refer the *Install Guide* section above for more detailed steps.
+
+### How do I save my report?
+
+Please use the "Print" button provided on top right corner of the report
+to export a PDF (subject to your browser and/or system support for
+printing as a PDF) or print a physical copy of your report.
 
 #	This tool is awesome! How do I provide feedback and suggestions for future versions?
 Please share your feedback & suggestions with us using this [form](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR-ItstQd6pNMqw0W9LKA5vxUOFNGUFgxRDJFTkg3VE5NQTQwTUVVVDNVMi4u). We are dying to hear from you. :)
