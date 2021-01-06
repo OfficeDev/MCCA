@@ -112,8 +112,8 @@ Function Invoke-MCCAConnections {
 
     try {
         switch ($ExchangeEnvironmentName) {
-            O365China {  }
-            O365GermanyCloud { $ConnectionUri = 'https://ps.compliance.protection.outlook.de/' }
+            #O365China {  }
+            #O365GermanyCloud { $ConnectionUri = 'https://ps.compliance.protection.outlook.de/' }
             O365USGovDoD { $ConnectionUri = 'https://l5.ps.compliance.protection.office365.us/powershell-liveid/' }
             O365USGovGCCHigh { $ConnectionUri = 'https://ps.compliance.protection.office365.us/powershell-liveid/' }
             Default { $ConnectionUri = '' }
@@ -1051,7 +1051,7 @@ Function Get-MCCAReport {
         [Switch]$NoVersionCheck,    
         [System.Collections.ArrayList] $Geo = @(),
         [System.Collections.ArrayList] $Solution = @(),
-        [string][validateset('O365China', 'O365Default', 'O365GermanyCloud', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
+        [string][validateset('O365Default', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
         $Collection
     )
     
