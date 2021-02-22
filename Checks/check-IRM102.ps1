@@ -17,14 +17,14 @@ class IRM102 : MCCACheck {
         $this.ExpandResults = $True
         $this.ItemName = "Policy"
         $this.DataType = "User Groups"
-        if($this.ExchangeEnvironmentNameForCheck -eq "O365USGovGCCHigh")
+        if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
                 "Getting started with Insider risk management" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-configure?view=o365-worldwide"
                 "Compliance Center - Insider Risk Management" = "https://compliance.microsoft.us/insiderriskmgmt"
                 "Insider risk management policies" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-policies"
             }
-        }elseif ($this.ExchangeEnvironmentNameForCheck -eq "O365USGovDoD") 
+        }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
                 "Getting started with Insider risk management" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-configure?view=o365-worldwide"

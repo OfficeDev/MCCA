@@ -19,7 +19,7 @@ class RM101 : MCCACheck {
         $this.ObjectType = "Policy Name"
         $this.ItemName = "Labels"
         $this.DataType = "Remarks"
-        if($this.ExchangeEnvironmentNameForCheck -eq "O365USGovGCCHigh")
+        if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
                 "Overview of Records"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records?view=o365-worldwide"
@@ -27,7 +27,7 @@ class RM101 : MCCACheck {
                 "Records management in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records-management?view=o365-worldwide"
                 "Compliance Manager - RM Actions" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22Records%20management%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
             }   
-        }elseif ($this.ExchangeEnvironmentNameForCheck -eq "O365USGovDoD") 
+        }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
                 "Overview of Records"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records?view=o365-worldwide"

@@ -18,7 +18,7 @@ class Audit101 : MCCACheck {
         $this.ExpandResults = $True
         $this.ItemName = "Configuration"
         $this.DataType = "Setting"
-        if($this.ExchangeEnvironmentNameForCheck -eq "O365USGovGCCHigh")
+        if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
                 "How to search Audit Log"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance"
@@ -26,7 +26,7 @@ class Audit101 : MCCACheck {
                 "Compliance Center - Audit Log search" = "https://compliance.microsoft.us/auditlogsearch"
                 "Compliance Manager - Audit Actions" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22Audit%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions "
                 }   
-        }elseif ($this.ExchangeEnvironmentNameForCheck -eq "O365USGovDoD") 
+        }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
                 "How to search Audit Log"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance"

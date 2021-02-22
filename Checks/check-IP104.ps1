@@ -19,14 +19,14 @@ class IP104 : MCCACheck {
         $this.ObjectType = "Auto Labelling Policy"
         $this.ItemName = "Label"
         $this.DataType = "Remarks"
-        if($this.ExchangeEnvironmentNameForCheck -eq "O365USGovGCCHigh")
+        if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
                 "Learn more about configuring classifications for SharePoint Online" = "https://go.microsoft.com/fwlink/?linkid=2071059"
                 "Compliance Center - Information Protection"                        = "https://compliance.microsoft.us/informationprotection"
                 "Compliance Manager - IP Actions" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22Microsoft%20Information%20Protection%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
             } 
-        }elseif ($this.ExchangeEnvironmentNameForCheck -eq "O365USGovDoD") 
+        }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
                 "Learn more about configuring classifications for SharePoint Online" = "https://go.microsoft.com/fwlink/?linkid=2071059"

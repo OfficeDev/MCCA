@@ -19,7 +19,7 @@ class IG102 : MCCACheck {
         $this.ObjectType = "Retention Policies"
         $this.ItemName = "Labels"
         $this.DataType = "Remarks"
-        if($this.ExchangeEnvironmentNameForCheck -eq "O365USGovGCCHigh")
+        if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
                 "Learn More Overview of retention labels"     = "https://docs.microsoft.com/en-us/microsoft-365/compliance/labels?redirectSourcePath=%252farticle%252faf398293-c69d-465e-a249-d74561552d30&view=o365-worldwide"
@@ -27,7 +27,7 @@ class IG102 : MCCACheck {
                 "Compliance Center - Information Governance" = "https://compliance.microsoft.us/informationgovernance?"
                 "Compliance Manager - IG Actions" = "https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20governance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
             }
-        }elseif ($this.ExchangeEnvironmentNameForCheck -eq "O365USGovDoD") 
+        }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
                 "Learn More Overview of retention labels"     = "https://docs.microsoft.com/en-us/microsoft-365/compliance/labels?redirectSourcePath=%252farticle%252faf398293-c69d-465e-a249-d74561552d30&view=o365-worldwide"
