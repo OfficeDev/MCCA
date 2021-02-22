@@ -43,6 +43,7 @@
 # TelemetryEnabled set to true for customers and false for testing
 [bool] $global:TelemetryEnabled = $false
 
+[string] $global:EnvironmentName = ""
 function Get-MCCADirectory {
     <#
 
@@ -74,8 +75,8 @@ Function Invoke-MCCAConnections {
         [String]$ExchangeEnvironmentName,
         [String]$LogFile
     )
-   
-    
+
+
     try {
 
         try {
@@ -101,7 +102,7 @@ Function Invoke-MCCAConnections {
         $InfoMessage = "Connecting to Exchange Online (Modern Module).."
         Write-Host "$(Get-Date) $InfoMessage"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName #-ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
@@ -252,6 +253,7 @@ Class MCCACheck {
     [CheckType] $CheckType = [CheckType]::PropertyValue
     [MCCARemediationInfo] $MCCARemediationInfo
     [string] $LogFile 
+    [string] $ExchangeEnvironmentNameForCheck = $global:EnvironmentName
     $Links
     $MCCAParams
 
@@ -288,7 +290,7 @@ Class MCCACheck {
     # Run
     Run($Config) {
         Write-Host "$(Get-Date) Analysis - $($this.Area) - $($this.Name)"
-        
+
         $this.GetResults($Config)
 
         # If there is no results to expand, turn off ExpandResults
@@ -412,7 +414,16 @@ Function Get-MCCACheckDefs {
     
                 #Hash table of links
                 $LinksInfo = @{}
-                $AllLinks = $Item.Links.Link
+                if($global:EnvironmentName -ieq "O365USGovGCCHigh")
+                {
+                    $AllLinks = $Item.GCCLinks.Link
+                }
+                elseif ($global:EnvironmentName -ieq "O365USGovDoD") {
+                    $AllLinks = $Item.DODLinks.Link
+                }
+                else{
+                    $AllLinks = $Item.Links.Link
+                }
                 foreach ($url in $AllLinks) {
                     $LinksInfo[$url.LinkText] = $url.ActualURL
                 }
@@ -1054,7 +1065,7 @@ Function Get-MCCAReport {
         [string][validateset('O365Default', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
         $Collection
     )
-    
+    $global:EnvironmentName  = $ExchangeEnvironmentName
     $OutputDirectoryName = Get-MCCADirectory
     $LogDirectory = "$OutputDirectoryName\Logs"
     $FileName = "MCCA-$(Get-Date -Format 'yyyyMMddHHmmss').log"
@@ -1193,7 +1204,7 @@ Function Invoke-MCCA {
         $InfoMessage = "Version Check Completed"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
-    
+
    
     $InfoMessage = "Establishing Connections"
     Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
@@ -1401,7 +1412,6 @@ function Invoke-MCCAVersionCheck {
         $PSGalleryVersion = (Find-Module MCCAPreview -Repository PSGallery -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue).Version
     }
     
-
     If ($PSGalleryVersion -gt $MCCAVersion) {
         $Updated = $False
         If ($Terminate) {

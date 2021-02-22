@@ -11,7 +11,7 @@ Import-Module .\MCCA.psm1
 
 #Get-MCCAReport -Geo @("nam") -Solution @("num")
 
-Get-MCCAReport -ExchangeEnvironmentName O365USGovGCCHigh
+#Get-MCCAReport -ExchangeEnvironmentName O365USGovGCCHigh
 
 
 

@@ -17,12 +17,28 @@ class CC102 : MCCACheck {
         $this.ExpandResults = $True
         $this.ItemName = "Policy"
         $this.DataType = "Policy Status"
+        if($this.ExchangeEnvironmentNameForCheck -eq "O365USGovGCCHigh")
+        {
+            $this.Links = @{
+                "Communication compliance in Microsoft 365"     = "https://go.microsoft.com/fwlink/?linkid=2107258"
+                "Compliance Center - Communication Compliance" = "https://compliance.microsoft.us/supervisoryreview"
+                "Compliance Manager - CC Actions" = "https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Communication%20compliance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            }
+        }elseif ($this.ExchangeEnvironmentNameForCheck -eq "O365USGovDoD") 
+        {
+            $this.Links = @{
+                "Communication compliance in Microsoft 365"     = "https://go.microsoft.com/fwlink/?linkid=2107258"
+                "Compliance Center - Communication Compliance" = "https://compliance.apps.mil/supervisoryreview"
+                "Compliance Manager - CC Actions" = "https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Communication%20compliance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            }
+        }else
+        {
         $this.Links = @{
             "Communication compliance in Microsoft 365"     = "https://go.microsoft.com/fwlink/?linkid=2107258"
             "Compliance Center - Communication Compliance" = "https://compliance.microsoft.com/supervisoryreview"
             "Compliance Manager - CC Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Communication%20compliance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
         }
-    
+        }
     }
 
     <#
