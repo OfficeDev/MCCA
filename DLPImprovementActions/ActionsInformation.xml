@@ -110,7 +110,6 @@
             <SIT Geo = "JPN">Japan Bank Account Number</SIT>
             <SIT Geo = "NAM">U.S. Social Security Number (SSN)</SIT>
             <SIT Geo = "APC">Saudi Arabia National ID</SIT>   
-
             <SIT Geo = "INTL">Azure DocumentDB Auth Key</SIT>
             <SIT Geo = "INTL">Azure IAAS Database Connection String and Azure SQL Connection String</SIT>
             <SIT Geo = "INTL">Azure IoT Connection String</SIT>
@@ -121,7 +120,6 @@
 				<SIT Geo = "INTL">SQL Server Connection String</SIT>
 				<SIT Geo = "INTL">Azure Service Bus Connection String</SIT>
             <SIT Geo = "INTL">IP Address</SIT>
-            <SIT Geo = "INTL">Azure Storage Account Key</SIT>
                    
            </SITs>
            <Links>
@@ -181,7 +179,7 @@
             <SIT Geo = "INTL">International Classification of Diseases (ICD-10-CM)</SIT>
             <SIT Geo = "AUS">New Zealand Ministry of Health Number</SIT>
             <SIT Geo = "NAM">Drug Enforcement Agency (DEA) Number</SIT>
-
+            <SIT Geo = "INTL">Medicare Beneficiary Identifier (MBI) card</SIT>
 				<SIT Geo = "AUS">Australia Tax File Number</SIT>
             <SIT Geo = "AUS">Australia Medical Account Number</SIT>
             <SIT Geo = "CAN">Canada Passport Number</SIT>
@@ -280,7 +278,6 @@
               <SIT Geo = "IND">India Unique Identification (Aadhaar) Number</SIT>
               <SIT Geo = "IND">India Permanent Account Number (PAN)</SIT>
               <SIT Geo = "APC">Indonesia Identity Card (KTP) Number</SIT> 
-              <SIT Geo = "INTL">International Banking Account Number (IBAN)</SIT>
               <SIT Geo = "EUR">Ireland Personal Public Service (PPS) Number</SIT> 
               <SIT Geo = "APC">Israel Bank Account Number</SIT>
               <SIT Geo = "EUR">Italy Driver's License Number</SIT>
@@ -321,7 +318,6 @@
               <SIT Geo = "NAM">U.S. Individual Taxpayer Identification Number (ITIN)</SIT>
               <SIT Geo = "NAM">U.S. Social Security Number (SSN)</SIT>
               <SIT Geo = "APC">Saudi Arabia National ID</SIT>
-
             <SIT Geo = "AUS">Australian Company Number</SIT>
             <SIT Geo = "EUR">Austria Value Added Tax (VAT) Number</SIT>
 				<SIT Geo = "EUR">Ukraine Passport Number (Domestic)</SIT>
@@ -371,6 +367,58 @@
             <SIT Geo = "EUR">Portugal Tax Identification Number</SIT>
             <SIT Geo = "EUR">Romania Personal Numerical Code (CNP)</SIT>
 				<SIT Geo = "EUR">Slovakia Personal Number</SIT>
+            <SIT Geo = "LAM">Argentina Unique Tax Identification Key (CUIT/CUIL)</SIT>
+            <SIT Geo = "EUR">Austria Driver's License Number</SIT>
+            <SIT Geo = "EUR">Austria Passport Number</SIT>
+            <SIT Geo = "EUR">Austria Social Security Number</SIT>
+            <SIT Geo = "EUR">Belgium Driver's License Number</SIT>
+            <SIT Geo = "EUR">Belgium Passport Number</SIT>
+            <SIT Geo = "EUR">Bulgaria Driver's License Number</SIT>
+            <SIT Geo = "EUR">Bulgaria Passport Number</SIT>
+            <SIT Geo = "EUR">Croatia Driver's License Number</SIT>
+            <SIT Geo = "EUR">Croatia Passport Number</SIT>
+            <SIT Geo = "EUR">Cyprus Driver's License Number</SIT>
+            <SIT Geo = "EUR">Cyprus Passport Number</SIT>
+            <SIT Geo = "EUR">Czech Driver's License Number</SIT>
+            <SIT Geo = "EUR">Czech Republic Passport Number</SIT>
+            <SIT Geo = "EUR">Denmark Driver's License Number</SIT>
+            <SIT Geo = "EUR">Denmark Passport Number</SIT>
+            <SIT Geo = "EUR">Estonia Driver's License Number</SIT>
+            <SIT Geo = "EUR">Estonia Passport Number</SIT>
+            <SIT Geo = "EUR">Finland Driver's License Number</SIT>
+            <SIT Geo = "EUR">Greece Driver's License Number</SIT>
+            <SIT Geo = "EUR">Greece Passport Number</SIT>
+            <SIT Geo = "EUR">Greece Social Security Number (AMKA)</SIT>
+            <SIT Geo = "EUR">Hungarian Social Security Number (TAJ)</SIT>
+            <SIT Geo = "EUR">Hungary Driver's License Number</SIT>
+            <SIT Geo = "EUR">Hungary Passport Number</SIT>
+            <SIT Geo = "EUR">Ireland Driver's License Number</SIT>
+            <SIT Geo = "EUR">Ireland Passport Number</SIT>
+            <SIT Geo = "EUR">Italy Passport Number</SIT>
+            <SIT Geo = "JPN">Japanese My Number Personal</SIT>
+            <SIT Geo = "EUR">Latvia Driver's License Number</SIT>
+            <SIT Geo = "EUR">Latvia Passport Number</SIT>
+            <SIT Geo = "EUR">Lithuania Driver's License Number</SIT>
+            <SIT Geo = "EUR">Lithuania Passport Number</SIT>
+            <SIT Geo = "EUR">Luxemburg Driver's License Number</SIT>
+            <SIT Geo = "EUR">Luxemburg Passport Number</SIT>
+            <SIT Geo = "EUR">Malta Driver's License Number</SIT>
+            <SIT Geo = "EUR">Malta Passport Number</SIT>
+            <SIT Geo = "NAM">Mexico Unique Population Registry Code (CURP)</SIT>
+            <SIT Geo = "EUR">Netherlands Driver's License Number</SIT>
+            <SIT Geo = "EUR">Netherlands Passport Number</SIT>
+            <SIT Geo = "EUR">Poland Driver's License Number</SIT>
+            <SIT Geo = "EUR">Portugal Driver's License Number</SIT>
+            <SIT Geo = "EUR">Portugal Passport Number</SIT>
+            <SIT Geo = "EUR">Romania Driver's License Number</SIT>
+            <SIT Geo = "EUR">Romania Passport Number</SIT>
+            <SIT Geo = "EUR">Slovakia Driver's License Number</SIT>
+            <SIT Geo = "EUR">Slovakia Passport Number</SIT>
+            <SIT Geo = "EUR">Slovenia Driver's License Number</SIT>
+            <SIT Geo = "EUR">Slovenia Passport Number</SIT>
+            <SIT Geo = "EUR">Spain Driver's License Number</SIT>
+            <SIT Geo = "EUR">Spain Passport Number</SIT>
+            <SIT Geo = "EUR">Sweden Driver's License Number</SIT>
 
             
            </SITs>
@@ -434,11 +482,10 @@
             <SIT Geo = "EUR">EU Debit Card Number</SIT>
             <SIT Geo = "APC">Israel Bank Account Number</SIT>
 				<SIT Geo = "NAM">U.S. Bank Account Number</SIT>
-				<SIT Geo = "NAM">ABA Routing Number</SIT>
             <SIT Geo = "JPN">Japan Bank Account Number</SIT>
-            <SIT Geo = "INTL">Azure Storage Account Key</SIT>
             <SIT Geo = "AUS">New Zealand bank account number</SIT>
             <SIT Geo = "AUS">New Zealand Inland Revenue number</SIT>
+            <SIT Geo = "INTL">International Banking Account Number (IBAN)</SIT>
            </SITs>
            <Links>
                      <Link>
