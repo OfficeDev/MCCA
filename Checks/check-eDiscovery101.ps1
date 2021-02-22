@@ -17,12 +17,30 @@ class eDiscovery101 : MCCACheck {
         $this.ExpandResults = $True
         $this.ItemName = "Case Name"
         $this.DataType = "Case Status"
+        if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
+        {
+            $this.Links = @{
+                "Get started with Core eDiscovery"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/get-started-core-ediscovery?view=o365-worldwide"
+                "Compliance Center - Core eDiscovery"                       = "https://compliance.microsoft.us/classicediscovery"
+                "eDiscovery in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/ediscovery?view=o365-worldwide"
+                "Compliance Manager - eDiscovery" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22eDiscovery%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+            }
+        }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
+        {
+            $this.Links = @{
+                "Get started with Core eDiscovery"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/get-started-core-ediscovery?view=o365-worldwide"
+                "Compliance Center - Core eDiscovery"                       = "https://compliance.apps.mil/classicediscovery"
+                "eDiscovery in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/ediscovery?view=o365-worldwide"
+                "Compliance Manager - eDiscovery" = "https://compliance.apps.mil/compliancemanager?filter=%7B%22Solution%22:%5B%22eDiscovery%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+            }
+        }else
+        {
         $this.Links = @{
             "Get started with Core eDiscovery"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/get-started-core-ediscovery?view=o365-worldwide"
             "Compliance Center - Core eDiscovery"                       = "https://compliance.microsoft.com/classicediscovery"
             "eDiscovery in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/ediscovery?view=o365-worldwide"
         }
-    
+        }
     }
 
     <#
