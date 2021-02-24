@@ -1260,13 +1260,10 @@ Function Invoke-MCCA {
 
         try
         {
-            # Pass your own TelemetryProperties.csv 
-            # Fill TelemetryProperties.csv file with the Azure Function URI and Function key
-
-            # Read the URI and Function Key from csv file to trigger the Azure Function
-            $CSVObject = Import-csv "$PSScriptRoot\TelemetryProperties.csv" -ErrorAction:SilentlyContinue
-            $URI = $CSVObject[0].URI.ToString()
-            $FunctionKey = $CSVObject[0].FunctionKey.ToString()
+            
+            # URI and Function Key to trigger the Azure Function
+            $URI = "Put Azure function based Telemetry URL here"
+            $FunctionKey = "Put Function key here"
 
             try
             {
