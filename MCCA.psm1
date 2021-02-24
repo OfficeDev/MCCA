@@ -41,7 +41,7 @@
 [bool] $global:ErrorOccurred = $false
 
 # TelemetryEnabled set to true for customers and false for testing
-[bool] $global:TelemetryEnabled = $true
+[bool] $global:TelemetryEnabled = $false
 
 [string] $global:EnvironmentName = ""
 function Get-MCCADirectory {
