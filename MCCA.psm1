@@ -1040,9 +1040,16 @@ Function Get-MCCAReport {
 				7	Audit
 				8	eDiscovery
 
+        .PARAMETER  ExchangeEnvironmentName
+        This will generate MCCA report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization or Microsoft GCC High organization
+         O365USGovDoD
+           This will generate MCCA report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization.
+         O365USGovGCCHigh
+           This will generate MCCA report for Security & Compliance Center PowerShell in a Microsoft GCC High organization.
+
         .PARAMETER Collection
             Internal only.
-        .EXAMPLE
+        .EXAMPLE 
             Get-MCCAReport
 			This will generate a customized report based on the geolocation of your tenant. If an error occurs while fetching your tenant's geolocation, you will get a report covering all supported geolocations.
 		.EXAMPLE
