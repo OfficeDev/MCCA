@@ -20,23 +20,23 @@ class IRM102 : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "Getting started with Insider risk management" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-configure?view=o365-worldwide"
-                "Compliance Center - Insider Risk Management" = "https://compliance.microsoft.us/insiderriskmgmt"
-                "Insider risk management policies" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-policies"
+                "Getting started with Insider risk management" = "https://aka.ms/mcca-irm-docs-action"
+                "Compliance Center - Insider Risk Management" = "https://aka.ms/mcca-gcch-irm-compliance-center"
+                "Insider risk management policies" = "https://aka.ms/mcca-irm-docs-learn-more"
             }
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "Getting started with Insider risk management" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-configure?view=o365-worldwide"
-                "Compliance Center - Insider Risk Management" = "https://compliance.apps.mil/insiderriskmgmt"
-                "Insider risk management policies" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-policies"
+                "Getting started with Insider risk management" = "https://aka.ms/mcca-irm-docs-action"
+                "Compliance Center - Insider Risk Management" = "https://aka.ms/mcca-dod-irm-compliance-center"
+                "Insider risk management policies" = "https://aka.ms/mcca-irm-docs-learn-more"
             }  
         }else
         {
         $this.Links = @{
-            "Getting started with Insider risk management" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-configure?view=o365-worldwide"
-            "Compliance Center - Insider Risk Management" = "https://compliance.microsoft.com/insiderriskmgmt"
-            "Insider risk management policies" = "https://docs.microsoft.com/microsoft-365/compliance/insider-risk-management-policies"
+            "Getting started with Insider risk management" = "https://aka.ms/mcca-irm-docs-action"
+            "Compliance Center - Insider Risk Management" = "https://aka.ms/mcca-irm-compliance-center"
+            "Insider risk management policies" = "https://aka.ms/mcca-irm-docs-learn-more"
         }
         }
     }

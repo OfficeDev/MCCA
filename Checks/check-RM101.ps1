@@ -22,26 +22,26 @@ class RM101 : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "Overview of Records"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records?view=o365-worldwide"
-                "Compliance Center - Records Management"                       = "https://compliance.microsoft.us/recordsmanagement?viewid=fileplan"
-                "Records management in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records-management?view=o365-worldwide"
-                "Compliance Manager - RM Actions" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22Records%20management%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+                "Overview of Records"              = "https://aka.ms/mcca-rm-docs-records"
+                "Compliance Center - Records Management"                       = "https://aka.ms/mcca-gcch-rm-compliance-center"
+                "Records management in Microsoft 365" = "https://aka.ms/mcca-rm-docs-records-management"
+                "Compliance Manager - RM Actions" = "https://aka.ms/mcca-gcch-rm-compliance-manager"
             }   
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "Overview of Records"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records?view=o365-worldwide"
-                "Compliance Center - Records Management"                       = "https://compliance.apps.mil/recordsmanagement?viewid=fileplan"
-                "Records management in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records-management?view=o365-worldwide"
-                "Compliance Manager - RM Actions" = "https://compliance.apps.mil/compliancemanager?filter=%7B%22Solution%22:%5B%22Records%20management%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+                "Overview of Records"              = "https://aka.ms/mcca-rm-docs-records"
+                "Compliance Center - Records Management"                       = "https://aka.ms/mcca-dod-rm-compliance-center"
+                "Records management in Microsoft 365" = "https://aka.ms/mcca-rm-docs-records-management"
+                "Compliance Manager - RM Actions" = "https://aka.ms/mcca-dod-rm-compliance-manager"
             }  
         }else
         {
         $this.Links = @{
-            "Overview of Records"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records?view=o365-worldwide"
-            "Compliance Center - Records Management"                       = "https://compliance.microsoft.com/recordsmanagement?viewid=fileplan"
-            "Records management in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/records-management?view=o365-worldwide"
-            "Compliance Manager - RM Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Records%20management%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            "Overview of Records"              = "https://aka.ms/mcca-rm-docs-records"
+            "Compliance Center - Records Management"                       = "https://aka.ms/mcca-rm-compliance-center"
+            "Records management in Microsoft 365" = "https://aka.ms/mcca-rm-docs-records-management"
+            "Compliance Manager - RM Actions" = "https://aka.ms/mcca-rm-compliance-manager"
         }
         }
     }
