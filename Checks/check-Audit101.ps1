@@ -21,26 +21,26 @@ class Audit101 : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "How to search Audit Log"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance"
-                "Advanced Audit"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/advanced-audit"
-                "Compliance Center - Audit Log search" = "https://compliance.microsoft.us/auditlogsearch"
-                "Compliance Manager - Audit Actions" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22Audit%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions "
+                "How to search Audit Log"              = "https://aka.ms/mcca-aa-docs-action-audit-log"
+                "Advanced Audit"                       = "https://aka.ms/mcca-aa-docs-learn-more-audit"
+                "Compliance Center - Audit Log search" = "https://aka.ms/mcca-gcch-aa-compliance-center"
+                "Compliance Manager - Audit Actions" = "https://aka.ms/mcca-gcch-aa-compliance-manager"
                 }   
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "How to search Audit Log"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance"
-                "Advanced Audit"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/advanced-audit"
-                "Compliance Center - Audit Log search" = "https://compliance.apps.mil/auditlogsearch"
-                "Compliance Manager - Audit Actions" = "https://compliance.apps.mil/compliancemanager?filter=%7B%22Solution%22:%5B%22Audit%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions "
+                "How to search Audit Log"              = "https://aka.ms/mcca-aa-docs-action-audit-log"
+                "Advanced Audit"                       = "https://aka.ms/mcca-aa-docs-learn-more-audit"
+                "Compliance Center - Audit Log search" = "https://aka.ms/mcca-dod-aa-compliance-center"
+                "Compliance Manager - Audit Actions" = "https://aka.ms/mcca-dod-aa-compliance-manager"
                 }
         }else
         {
             $this.Links = @{
-                "How to search Audit Log"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance"
-                "Advanced Audit"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/advanced-audit"
-                "Compliance Center - Audit Log search" = "https://compliance.microsoft.com/auditlogsearch"
-                "Compliance Manager - Audit Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Audit%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+                "How to search Audit Log"              = "https://aka.ms/mcca-aa-docs-action-audit-log"
+                "Advanced Audit"                       = "https://aka.ms/mcca-aa-docs-learn-more-audit"
+                "Compliance Center - Audit Log search" = "https://aka.ms/mcca-aa-compliance-center"
+                "Compliance Manager - Audit Actions" = "https://aka.ms/mcca-aa-compliance-manager"
                 }
         }
     

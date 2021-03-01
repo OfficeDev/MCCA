@@ -31,43 +31,43 @@
            <Links>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-compliance-manager</ActualURL>
                      </Link>
             </Links>
             <GCCLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-gcch-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-gcch-dlp-compliance-manager</ActualURL>
                      </Link>
             </GCCLinks>
             <DODLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dod-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dod-dlp-compliance-manager</ActualURL>
                      </Link>
             </DODLinks>
     </ActionItem>
@@ -125,43 +125,43 @@
            <Links>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-compliance-manager</ActualURL>
                      </Link>
             </Links>
             <GCCLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-gcch-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-gcch-dlp-compliance-manager</ActualURL>
                      </Link>
             </GCCLinks>
             <DODLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dod-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dod-dlp-compliance-manager</ActualURL>
                      </Link>
             </DODLinks>
     </ActionItem>
@@ -190,43 +190,43 @@
            <Links>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-compliance-manager</ActualURL>
                      </Link>
             </Links>
             <GCCLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-gcch-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-gcch-dlp-compliance-manager</ActualURL>
                      </Link>
             </GCCLinks>
             <DODLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dod-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dod-dlp-compliance-manager</ActualURL>
                      </Link>
             </DODLinks>
     </ActionItem>
@@ -425,43 +425,43 @@
            <Links>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-compliance-manager</ActualURL>
                      </Link>
             </Links>
             <GCCLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-gcch-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-gcch-dlp-compliance-manager</ActualURL>
                      </Link>
             </GCCLinks>
             <DODLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dod-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dod-dlp-compliance-manager</ActualURL>
                      </Link>
             </DODLinks>
     </ActionItem>
@@ -490,43 +490,43 @@
            <Links>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-compliance-manager</ActualURL>
                      </Link>
             </Links>
             <GCCLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-gcch-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-gcch-dlp-compliance-manager</ActualURL>
                      </Link>
             </GCCLinks>
             <DODLinks>
                      <Link>
                         <LinkText>Create a DLP policy from a template</LinkText> 
-                        <ActualURL>https://docs.microsoft.com/en-us/microsoft-365/compliance/create-a-dlp-policy-from-a-template?view=o365-worldwide</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dlp-docs-action-create-policy</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Center - Data Loss Prevention</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/datalossprevention</ActualURL>
+                        <ActualURL>https://aka.ms/mcca-dod-dlp-compliance-center</ActualURL>
                      </Link>
                      <Link>
                         <LinkText>Compliance Manager - DLP Actions</LinkText> 
-                        <ActualURL>https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Data%20loss%20prevention%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&amp;viewid=ImprovementActions</ActualURL>
+                        <ActualURL>https://aka.ms/ mcca-dod-dlp-compliance-manager</ActualURL>
                      </Link>
             </DODLinks>
     </ActionItem>

@@ -22,26 +22,26 @@ class IG101 : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "Learn More Overview of retention labels"     = "https://docs.microsoft.com/en-us/microsoft-365/compliance/labels?redirectSourcePath=%252farticle%252faf398293-c69d-465e-a249-d74561552d30&view=o365-worldwide"
-                "Overview of retention policies"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/retention-policies?view=o365-worldwide"
-                "Compliance Center - Information Governance" = "https://compliance.microsoft.us/informationgovernance?"
-                "Compliance Manager - IG Actions" = "https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20governance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+                "Learn More Overview of retention labels"     = "https://aka.ms/mcca-ig-docs-learn-more"
+                "Overview of retention policies"              = "https://aka.ms/mcca-ig-docs-retention-policies"
+                "Compliance Center - Information Governance" = "https://aka.ms/mcca-gcch-ig-compliance-center"
+                "Compliance Manager - IG Actions" = "https://aka.ms/mcca-gcch-ig-compliance-manager"
             }
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "Learn More Overview of retention labels"     = "https://docs.microsoft.com/en-us/microsoft-365/compliance/labels?redirectSourcePath=%252farticle%252faf398293-c69d-465e-a249-d74561552d30&view=o365-worldwide"
-                "Overview of retention policies"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/retention-policies?view=o365-worldwide"
-                "Compliance Center - Information Governance" = "https://compliance.apps.mil/informationgovernance?"
-                "Compliance Manager - IG Actions" = "https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20governance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+                "Learn More Overview of retention labels"     = "https://aka.ms/mcca-ig-docs-learn-more"
+                "Overview of retention policies"              = "https://aka.ms/mcca-ig-docs-retention-policies"
+                "Compliance Center - Information Governance" = "https://aka.ms/mcca-dod-ig-compliance-center"
+                "Compliance Manager - IG Actions" = "https://aka.ms/mcca-dod-ig-compliance-manager"
             }
         }else
         {
         $this.Links = @{
-            "Learn More Overview of retention labels"     = "https://docs.microsoft.com/en-us/microsoft-365/compliance/labels?redirectSourcePath=%252farticle%252faf398293-c69d-465e-a249-d74561552d30&view=o365-worldwide"
-            "Overview of retention policies"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/retention-policies?view=o365-worldwide"
-            "Compliance Center - Information Governance" = "https://compliance.microsoft.com/informationgovernance?"
-            "Compliance Manager - IG Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20governance%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            "Learn More Overview of retention labels"     = "https://aka.ms/mcca-ig-docs-learn-more"
+            "Overview of retention policies"              = "https://aka.ms/mcca-ig-docs-retention-policies"
+            "Compliance Center - Information Governance" = "https://aka.ms/mcca-ig-compliance-center"
+            "Compliance Manager - IG Actions" = "https://aka/ms/mcca-ig-compliance-manager"
         }
         }
     }

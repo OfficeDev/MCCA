@@ -129,6 +129,7 @@ Function Invoke-MCCAConnections {
         else {
             Connect-IPPSSession -UserPrincipalName $userName -ConnectionUri $ConnectionUri -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
         }
+        try{  $statusCode = wget http://aka.ms/mcca-execution -Method head | % {$_.StatusCode}         }catch{}
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time." -ForegroundColor:Red

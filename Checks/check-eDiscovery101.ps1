@@ -20,25 +20,25 @@ class eDiscovery101 : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "Get started with Core eDiscovery"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/get-started-core-ediscovery?view=o365-worldwide"
-                "Compliance Center - Core eDiscovery"                       = "https://compliance.microsoft.us/classicediscovery"
-                "eDiscovery in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/ediscovery?view=o365-worldwide"
-                "Compliance Manager - eDiscovery" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22eDiscovery%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+                "Get started with Core eDiscovery"              = "https://aka.ms/mcca-ced-docs-action"
+                "Compliance Center - Core eDiscovery"                       = "https://aka.ms/mcca-gcch-ced-compliance-center"
+                "eDiscovery in Microsoft 365" = "https://aka.ms/mcca-aed-docs-learn-more"
+                "Compliance Manager - eDiscovery" = "https://aka.ms/mcca-gcch-aed-compliance-manager"
             }
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "Get started with Core eDiscovery"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/get-started-core-ediscovery?view=o365-worldwide"
-                "Compliance Center - Core eDiscovery"                       = "https://compliance.apps.mil/classicediscovery"
-                "eDiscovery in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/ediscovery?view=o365-worldwide"
-                "Compliance Manager - eDiscovery" = "https://compliance.apps.mil/compliancemanager?filter=%7B%22Solution%22:%5B%22eDiscovery%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+                "Get started with Core eDiscovery"              = "https://aka.ms/mcca-ced-docs-action"
+                "Compliance Center - Core eDiscovery"                       = "https://aka.ms/mcca-dod-ced-compliance-center"
+                "eDiscovery in Microsoft 365" = "https://aka.ms/mcca-aed-docs-learn-more"
+                "Compliance Manager - eDiscovery" = "https://aka.ms/mcca-dod-aed-compliance-manager"
             }
         }else
         {
         $this.Links = @{
-            "Get started with Core eDiscovery"              = "https://docs.microsoft.com/en-us/microsoft-365/compliance/get-started-core-ediscovery?view=o365-worldwide"
-            "Compliance Center - Core eDiscovery"                       = "https://compliance.microsoft.com/classicediscovery"
-            "eDiscovery in Microsoft 365" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/ediscovery?view=o365-worldwide"
+            "Get started with Core eDiscovery"              = "https://aka.ms/mcca-ced-docs-action"
+            "Compliance Center - Core eDiscovery"                       = "https://aka.ms/mcca-ced-compliance-center"
+            "eDiscovery in Microsoft 365" = "https://aka.ms/mcca-aed-docs-learn-more"
         }
         }
     }

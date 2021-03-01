@@ -20,26 +20,26 @@ class IP102 : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "Overview of sensitivity labels "                           = "https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide"
-                "How to apply a sensitivity label to content automatically" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide"
-                "Compliance Center - Information Protection"               = "https://compliance.microsoft.us/informationprotection"
-                "Compliance Manager - IP Actions" = "https://compliance.microsoft.us/compliancemanager?filter=%7B%22Solution%22:%5B%22Microsoft%20Information%20Protection%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+                "Overview of sensitivity labels "                           = "https://aka.ms/mcca-ip-docs-sensitivity-labels"
+                "How to apply a sensitivity label to content automatically" = "https://aka.ms/mcca-ip-docs-action-apply-sensitivity-labels"
+                "Compliance Center - Information Protection"               = "https://aka.ms/mcca-gcch-ip-compliance-center"
+                "Compliance Manager - IP Actions" = "https://aka.ms/mcca-gcch-ip-compliance-manager"
             }
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "Overview of sensitivity labels "                           = "https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide"
-                "How to apply a sensitivity label to content automatically" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide"
-                "Compliance Center - Information Protection"               = "https://compliance.apps.mil/informationprotection"
-                "Compliance Manager - IP Actions" = "https://compliance.apps.mil/compliancemanager?filter=%7B%22Solution%22:%5B%22Microsoft%20Information%20Protection%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22%5D%7D&viewid=ImprovementActions"
+                "Overview of sensitivity labels "                           = "https://aka.ms/mcca-ip-docs-sensitivity-labels"
+                "How to apply a sensitivity label to content automatically" = "https://aka.ms/mcca-ip-docs-action-apply-sensitivity-labels"
+                "Compliance Center - Information Protection"               = "https://aka.ms/mcca-dod-ip-compliance-center"
+                "Compliance Manager - IP Actions" = "https://aka.ms/mcca-dod-ip-compliance-manager"
             } 
         }else
         {
         $this.Links = @{
-            "Overview of sensitivity labels "                           = "https://docs.microsoft.com/en-us/microsoft-365/compliance/sensitivity-labels?view=o365-worldwide"
-            "How to apply a sensitivity label to content automatically" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/apply-sensitivity-label-automatically?view=o365-worldwide"
-            "Compliance Center - Information Protection"               = "https://compliance.microsoft.com/informationprotection"
-            "Compliance Manager - IP Actions" = "https://compliance.microsoft.com/compliancescore?filter=%7B%22Solution%22:%5B%22Information%20protection%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
+            "Overview of sensitivity labels "                           = "https://aka.ms/mcca-ip-docs-sensitivity-labels"
+            "How to apply a sensitivity label to content automatically" = "https://aka.ms/mcca-ip-docs-action-apply-sensitivity-labels"
+            "Compliance Center - Information Protection"               = "https://aka.ms/mcca-ip-compliance-center"
+            "Compliance Manager - IP Actions" = "https://aka.ms/mcca-ip-compliance-manager"
         }
         }
     }

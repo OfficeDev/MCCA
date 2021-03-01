@@ -19,25 +19,25 @@ class ComplianceManager : MCCACheck {
         if($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovGCCHigh")
         {
             $this.Links = @{
-                "Visit Compliance Manager"              = "https://compliance.microsoft.us/compliancescore?filter=%7B%22Solution%22:%5B%22Compliance%20Score%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
-                "Learn more about Compliance Manager"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/compliance-manager?view=o365-worldwide"
-                "Compliance Manager Quickstart Guide" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/compliance-manager-quickstart?view=o365-worldwide"
+                "Visit Compliance Manager"              = "https://aka.ms/mcca-gcch-cm-compliance-manager"
+                "Learn more about Compliance Manager"    = "https://aka.ms/mcca-cm-docs-learn-more"
+                "Compliance Manager Quickstart Guide" = "https://aka.ms/mcca-cm-docs-action"
            
             }
         }elseif ($this.ExchangeEnvironmentNameForCheck -ieq "O365USGovDoD") 
         {
             $this.Links = @{
-                "Visit Compliance Manager"              = "https://compliance.apps.mil/compliancescore?filter=%7B%22Solution%22:%5B%22Compliance%20Score%22%5D,%22Status%22:%5B%22None%22,%22NotAssessed%22,%22Passed%22,%22FailedLowRisk%22,%22FailedMediumRisk%22,%22FailedHighRisk%22,%22NotInScope%22,%22ToBeDetermined%22,%22CouldNotBeDetermined%22,%22PartiallyTested%22,%22Select%22%5D%7D&viewid=ImprovementActions"
-                "Learn more about Compliance Manager"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/compliance-manager?view=o365-worldwide"
-                "Compliance Manager Quickstart Guide" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/compliance-manager-quickstart?view=o365-worldwide"
+                "Visit Compliance Manager"              = "https://aka.ms/mcca-dod-cm-compliance-manager"
+                "Learn more about Compliance Manager"  = "https://aka.ms/mcca-cm-docs-learn-more"
+                "Compliance Manager Quickstart Guide" = "https://aka.ms/mcca-cm-docs-action"
            
             }
         }else
         {
         $this.Links = @{
-            "Visit Compliance Manager"              = "https://compliance.microsoft.com/compliancemanager"
-            "Learn more about Compliance Manager"                       = "https://docs.microsoft.com/en-us/microsoft-365/compliance/compliance-manager?view=o365-worldwide"
-            "Compliance Manager Quickstart Guide" = "https://docs.microsoft.com/en-us/microsoft-365/compliance/compliance-manager-quickstart?view=o365-worldwide"
+            "Visit Compliance Manager"              = "https://aka.ms/mcca-cm-compliance-manager"
+            "Learn more about Compliance Manager"   = "https://aka.ms/mcca-cm-docs-learn-more"
+            "Compliance Manager Quickstart Guide" = "https://aka.ms/mcca-cm-docs-action"
        
         }
         }
