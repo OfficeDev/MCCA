@@ -41,7 +41,7 @@ class IG101 : MCCACheck {
             "Learn More Overview of retention labels"     = "https://aka.ms/mcca-ig-docs-learn-more"
             "Overview of retention policies"              = "https://aka.ms/mcca-ig-docs-retention-policies"
             "Compliance Center - Information Governance" = "https://aka.ms/mcca-ig-compliance-center"
-            "Compliance Manager - IG Actions" = "https://aka/ms/mcca-ig-compliance-manager"
+            "Compliance Manager - IG Actions" = "https://aka.ms/mcca-ig-compliance-manager"
         }
         }
     }
