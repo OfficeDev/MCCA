@@ -643,11 +643,11 @@ class html : MCCAOutput {
 
         $Output += "
             </main>
+            <center>Bugs? Issues? Suggestions? <a href='https://github.com/OfficeDev/MCCA'>GitHub</center>
             </div>
             <footer class='app-footer'>
             <p><center><i>&nbsp;&nbsp;&nbsp;&nbsp;Disclaimer: Recommendations from  (MCCA) should not be interpreted as a guarantee of compliance. It is up to you to evaluate and validate the effectiveness of customer controls per your regulatory environment. <br>
-               </i></center> </p>
-               <br><center>Bugs? Issues? Suggestions? <a href='https://github.com/OfficeDev/MCCA'>GitHub</center></footer>
+               </i></center> </p></footer>
         </body>
     </html>"
 
