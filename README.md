@@ -159,7 +159,20 @@ Step 3: Generate MCCA Report
           
          This will generate a report only on for the solutions entered by you and based on the regions you have selected. 
   In either of the cases, there will be a prompt to enter your credentials. Once you enter your credentials, MCCA will run for a while and an HTML report will be generated.
+ 
+  4.  ExchangeEnvironmentName
+ 
+        This will generate MCCA report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization or Microsoft GCC High organization
+        
+        O365USGovDoD
+           This will generate MCCA report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization.
+            
+          Get-MCCAReport -ExchangeEnvironmentName O365USGovDoD
 
+         O365USGovGCCHigh
+           This will generate MCCA report for Security & Compliance Center PowerShell in a Microsoft GCC High organization.
+           
+           Get-MCCAReport -ExchangeEnvironmentName O365USGovGCCHigh
 # License
 We use the following open source components in order to generate the report:
     •	Bootstrap, MIT License - https://getbootstrap.com/docs/4.0/about/license/
