@@ -78,26 +78,33 @@ Function Invoke-MCCAConnections {
 
 
     try {
-        $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
+        try
+        {
+            $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
+        }
+        catch
+        {
+            $ExchangeVersion = "Error"
+            write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
+            Write-Verbose "Installing ExchangeOnlineManagement"
+            Install-Module -Name "ExchangeOnlineManagement" -force
+        }
+        
+        
+        if ($ExchangeVersion -eq "Error") {
+            $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
+        }
+        
+        if ("$ExchangeVersion" -lt "2.0.3") {
+            write-host "$(Get-Date) Your Exchange Online Management module is not updated. Updating.."
+            Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
+        }
+
         $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
         $InfoMessage = "Connecting to Exchange Online (Modern Module).."
         Write-Host "$(Get-Date) $InfoMessage"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        
-        switch -Wildcard ($ExchangeVersion) {
-
-            { '2.0.3*', '2.0.4*' } {
-                Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
-                break
-            } 
-
-            'Error' {
-                # EOM(Exchange Online Management) is not installed
-                write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
-                Write-Verbose "Installing ExchangeOnlineManagement"
-                Install-Module -Name "ExchangeOnlineManagement" -force
-            }
-        }
+        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
@@ -780,7 +787,7 @@ Function Get-AcceptedDomains {
         Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
     catch {
-        $Collection["AcceptedDomains"] = = "Error"
+        $Collection["AcceptedDomains"] = "Error"
         Write-Host "Error:$(Get-Date) There was an issue in fetching tenant name information. Please try running the tool again after some time." -ForegroundColor:Red
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
