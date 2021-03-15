@@ -78,31 +78,26 @@ Function Invoke-MCCAConnections {
 
 
     try {
-
-        try {
-            $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
-        }
-        catch {
-            # EOM(Exchange Online Management) is not installed
-            $ExchangeVersion = "Error"
-            write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
-            Install-Module -Name "ExchangeOnlineManagement" -force
-        }
-    
-        if ($ExchangeVersion -eq "Error") {
-            $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" | Sort-Object Version -Desc)[0].Version
-        }
-        
-        if ("$ExchangeVersion" -ne "2.0.3") {
-            write-host "$(Get-Date) Your Exchange Online Management module is not updated. Updating.."
-            Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
-        }
-
+        $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
         $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
         $InfoMessage = "Connecting to Exchange Online (Modern Module).."
         Write-Host "$(Get-Date) $InfoMessage"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+        
+        switch -Wildcard ($ExchangeVersion) {
+
+            { '2.0.3*', '2.0.4*' } {
+                Connect-ExchangeOnline -Prefix EXOP -UserPrincipalName $userName -ExchangeEnvironmentName $ExchangeEnvironmentName -ShowBanner:$false -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
+                break
+            } 
+
+            'Error' {
+                # EOM(Exchange Online Management) is not installed
+                write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
+                Write-Verbose "Installing ExchangeOnlineManagement"
+                Install-Module -Name "ExchangeOnlineManagement" -force
+            }
+        }
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Exchange Online. Please try running the tool again after some time." -ForegroundColor:Red
@@ -129,7 +124,7 @@ Function Invoke-MCCAConnections {
         else {
             Connect-IPPSSession -UserPrincipalName $userName -ConnectionUri $ConnectionUri -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue
         }
-        try{  $statusCode = wget http://aka.ms/mcca-execution -Method head | % {$_.StatusCode}         }catch{}
+        try { $statusCode = wget http://aka.ms/mcca-execution -Method head | % { $_.StatusCode } }catch {}
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in connecting to Security & Compliance Center. Please try running the tool again after some time." -ForegroundColor:Red
@@ -415,14 +410,13 @@ Function Get-MCCACheckDefs {
     
                 #Hash table of links
                 $LinksInfo = @{}
-                if($global:EnvironmentName -ieq "O365USGovGCCHigh")
-                {
+                if ($global:EnvironmentName -ieq "O365USGovGCCHigh") {
                     $AllLinks = $Item.GCCLinks.Link
                 }
                 elseif ($global:EnvironmentName -ieq "O365USGovDoD") {
                     $AllLinks = $Item.DODLinks.Link
                 }
-                else{
+                else {
                     $AllLinks = $Item.Links.Link
                 }
                 foreach ($url in $AllLinks) {
@@ -786,7 +780,7 @@ Function Get-AcceptedDomains {
         Write-Log -IsWarn -WarnMessage $WarnMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
     catch {
-        $Collection["AcceptedDomains"] == "Error"
+        $Collection["AcceptedDomains"] = = "Error"
         Write-Host "Error:$(Get-Date) There was an issue in fetching tenant name information. Please try running the tool again after some time." -ForegroundColor:Red
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
@@ -1073,7 +1067,7 @@ Function Get-MCCAReport {
         [string][validateset('O365Default', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
         $Collection
     )
-    $global:EnvironmentName  = $ExchangeEnvironmentName
+    $global:EnvironmentName = $ExchangeEnvironmentName
     $OutputDirectoryName = Get-MCCADirectory
     $LogDirectory = "$OutputDirectoryName\Logs"
     $FileName = "MCCA-$(Get-Date -Format 'yyyyMMddHHmmss').log"
@@ -1232,49 +1226,42 @@ Function Invoke-MCCA {
     }
     
     # If Telemetry is enabled (For Customers), then collect telemetry
-    if($($global:TelemetryEnabled) -eq $true)
-    {
+    if ($($global:TelemetryEnabled) -eq $true) {
         $InfoMessage = "Collecting Telemetry"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
 
         $MCCAVersion = $VersionCheck.Version.ToString()
 
         # Setting tenant name
-        if($Collection["AcceptedDomains"] -eq "Error")
-        {
+        if ($Collection["AcceptedDomains"] -eq "Error") {
             $DomainName = "Error"
         }
-        else
-        {
-            $DomainName = ($Collection["AcceptedDomains"] | Where-Object {$_.InitialDomain -eq $True}).DomainName
+        else {
+            $DomainName = ($Collection["AcceptedDomains"] | Where-Object { $_.InitialDomain -eq $True }).DomainName
         }
 
         # Setting organization name
-        if($Collection["GetOrganisationConfig"] -eq "Error")
-        {
+        if ($Collection["GetOrganisationConfig"] -eq "Error") {
             $OrganizationName = "Error"
         }
-        else
-        {
+        else {
             $OrganizationName = $Collection["GetOrganisationConfig"].DisplayName
         }
         
         # Set the parameter for the URI
         $Parameters = @{
-            MCCAVersion = $MCCAVersion
-            Domain = $DomainName
+            MCCAVersion  = $MCCAVersion
+            Domain       = $DomainName
             Organization = $OrganizationName
         } | ConvertTo-Json
 
-        try
-        {
+        try {
             
             # URI and Function Key to trigger the Azure Function
             $URI = "Put Azure function based Telemetry URL here"
             $FunctionKey = "Put Function key here"
 
-            try
-            {
+            try {
                 # Set the header for the URI
                 $Headers = @{
                     'x-functions-key' = $FunctionKey
@@ -1285,15 +1272,13 @@ Function Invoke-MCCA {
                 Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
                 Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                
             }
-            catch
-            {
+            catch {
                 $ErrorMessage = $_.ToString()
                 $StackTraceInfo = $_.ScriptStackTrace
                 Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                                 
             }                      
         }
-        catch
-        {
+        catch {
             $ErrorMessage = $_.ToString()
             $StackTraceInfo = $_.ScriptStackTrace
             Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                 
