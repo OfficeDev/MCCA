@@ -71,6 +71,7 @@ limited information in the final report.
 |Compliance Data Admin               |Yes      |Yes<sup>2</sup>      |Yes           |Yes                   |Yes      |Yes<sup>3</sup>  |Yes<sup>5</sup>     |No |
 |Customer Lockbox access approver    |No       |No          |No            |No                    |No       |No      |No         |No |
 |Exchange Admin                      |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No<sup>4</sup>      |No |
+|Global admin                    |Yes      |Yes         |Yes           |Yes                   |Yes      |Yes     |Yes        |Yes |
 |Global reader                       |Yes      |Yes         |Yes           |Yes                   |No       |No      |Yes        |No |
 |Helpdesk admin                      |No       |No<sup>1</sup>       |No            |No                    |No       |No      |No<sup>4</sup>      |No |
 |Non-Admin User                      |No       |No          |No            |No                    |No       |No      |No         |No |
