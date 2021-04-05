@@ -1073,7 +1073,7 @@ Function Get-MCCAReport {
         $Collection
     )
     $OutputDirectoryName = Get-MCCADirectory
-    if ((Test-Path -Path "$OutputDirectoryName\UserConsent.txt" -PathType Leaf) -and ($(Get-Content "$OutputDirectoryName\UserConsent.txt") -eq "Yes")) {
+    if ((Test-Path -Path "$OutputDirectoryName\UserConsent.txt" -PathType Leaf) -and ($(Get-Content "$OutputDirectoryName\UserConsent.txt") -ieq "Yes")) {
         $global:TelemetryEnabled = $true
     }
     else {
