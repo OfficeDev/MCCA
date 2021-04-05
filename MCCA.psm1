@@ -1008,6 +1008,11 @@ Function Get-MCCAReport {
             Prevents MCCA from determining if it's running the latest version. It's always very important to be running the latest
             version of MCCA. We will change guidelines as the product and the recommended practices article changes. Not running the
             latest version might provide recommendations that are no longer valid.
+        
+        .PARAMETER TurnOffDataCollection 
+            Disables data collection. It can be used by users who wish to turn off data collection by Microsoft. Turning it off 
+            will delete the UserConsent file present in the output Report folder and ultimately will not consider acceptance in 
+            further running instance of the tool.
 
 		.PARAMETER Geo 
             This will generate a report based on the geolocations entered by you.You need to input appropriate numbers from the following list corresponding to the regions. 
@@ -1052,7 +1057,7 @@ Function Get-MCCAReport {
         .EXAMPLE 
             Get-MCCAReport
 			This will generate a customized report based on the geolocation of your tenant. If an error occurs while fetching your tenant's geolocation, you will get a report covering all supported geolocations.
-		.EXAMPLE
+            .EXAMPLE
             Get-MCCAReport -Geo @(1,7)
 			This will generate a customized report based on the geolocations entered by you. 
 		.EXAMPLE
@@ -1067,12 +1072,17 @@ Function Get-MCCAReport {
     Param(
         [CmdletBinding()]
         [Switch]$NoVersionCheck,    
+        [Switch]$TurnOffDataCollection,
         [System.Collections.ArrayList] $Geo = @(),
         [System.Collections.ArrayList] $Solution = @(),
         [string][validateset('O365Default', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
         $Collection
     )
     $OutputDirectoryName = Get-MCCADirectory
+    if(($TurnOffDataCollection -eq $true) -and ($(Test-Path -Path "$OutputDirectoryName\UserConsent.txt" -PathType Leaf) -eq $true))
+    {
+        Remove-Item "$OutputDirectoryName\UserConsent.txt"
+    }
     if ((Test-Path -Path "$OutputDirectoryName\UserConsent.txt" -PathType Leaf) -and ($(Get-Content "$OutputDirectoryName\UserConsent.txt") -ieq "Yes")) {
         $global:TelemetryEnabled = $true
     }
