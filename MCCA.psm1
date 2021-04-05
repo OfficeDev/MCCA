@@ -40,7 +40,7 @@
 #>
 [bool] $global:ErrorOccurred = $false
 
-# TelemetryEnabled set to true for customers and false for testing
+# TelemetryEnabled 
 [bool] $global:TelemetryEnabled = $false
 
 [string] $global:EnvironmentName = ""
@@ -78,12 +78,10 @@ Function Invoke-MCCAConnections {
 
 
     try {
-        try
-        {
+        try {
             $ExchangeVersion = (Get-InstalledModule -name "ExchangeOnlineManagement" -ErrorAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
         }
-        catch
-        {
+        catch {
             $ExchangeVersion = "Error"
             write-host "$(Get-Date) Exchange Online Management module is not installed. Installing.."
             Write-Verbose "Installing ExchangeOnlineManagement"
@@ -1074,8 +1072,38 @@ Function Get-MCCAReport {
         [string][validateset('O365Default', 'O365USGovDoD', 'O365USGovGCCHigh')] $ExchangeEnvironmentName = 'O365Default',
         $Collection
     )
-    $global:EnvironmentName = $ExchangeEnvironmentName
     $OutputDirectoryName = Get-MCCADirectory
+    if ((Test-Path -Path "$OutputDirectoryName\UserConsent.txt" -PathType Leaf) -and ($(Get-Content "$OutputDirectoryName\UserConsent.txt") -eq "Yes")) {
+        $global:TelemetryEnabled = $true
+    }
+    else {
+        $cntOfIterations = 1
+        Write-Host "Data Collection: The software may collect information about you and your use of the software and send it to Microsoft. Microsoft may use this information to provide services and improve our products and services. You may turn off the telemetry as described in the repository. There are also some features in the software that may enable you and Microsoft to collect data from users of your applications. If you use these features, you must comply with applicable law, including providing appropriate notices to users of your applications together with a copy of Microsoft's privacy statement. Our privacy statement is located at https://go.microsoft.com/fwlink/?LinkID=824704. You can learn more about data collection and use in the help documentation and our privacy statement. Your use of the software operates as your consent to these practices." -ForegroundColor Yellow
+        while ($cntOfIterations -lt 3) {
+            Write-Host "Do you accept(Y/N):" -NoNewline -ForegroundColor Yellow
+            $telemetryConsent = Read-Host -ErrorAction:SilentlyContinue
+            $telemetryConsent = $telemetryConsent.Trim()
+            if (($telemetryConsent -ieq "y") -or ($telemetryConsent -ieq "yes")) {
+                if (Test-Path -Path "$OutputDirectoryName\UserConsent.txt" -PathType Leaf) {
+                    Remove-Item "$OutputDirectoryName\UserConsent.txt"
+                }
+                New-Item "$OutputDirectoryName\UserConsent.txt" | Out-Null
+                Set-Content "$OutputDirectoryName\UserConsent.txt" 'Yes' 
+                $global:TelemetryEnabled = $true
+                break
+            }
+            elseif (($telemetryConsent -ieq "n") -or ($telemetryConsent -ieq "no")) {
+                break
+            }
+            Write-Host "Invalid input! Please try again." -ForegroundColor Red
+            $cntOfIterations += 1
+        }
+        if ($cntOfIterations -eq 3) {
+            return
+        }
+    }
+    
+    $global:EnvironmentName = $ExchangeEnvironmentName
     $LogDirectory = "$OutputDirectoryName\Logs"
     $FileName = "MCCA-$(Get-Date -Format 'yyyyMMddHHmmss').log"
     $LogFile = "$LogDirectory\$FileName"
@@ -1231,66 +1259,6 @@ Function Invoke-MCCA {
         $InfoMessage = "User Configurations Fetched"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
-    
-    # If Telemetry is enabled (For Customers), then collect telemetry
-    if ($($global:TelemetryEnabled) -eq $true) {
-        $InfoMessage = "Collecting Telemetry"
-        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-
-        $MCCAVersion = $VersionCheck.Version.ToString()
-
-        # Setting tenant name
-        if ($Collection["AcceptedDomains"] -eq "Error") {
-            $DomainName = "Error"
-        }
-        else {
-            $DomainName = ($Collection["AcceptedDomains"] | Where-Object { $_.InitialDomain -eq $True }).DomainName
-        }
-
-        # Setting organization name
-        if ($Collection["GetOrganisationConfig"] -eq "Error") {
-            $OrganizationName = "Error"
-        }
-        else {
-            $OrganizationName = $Collection["GetOrganisationConfig"].DisplayName
-        }
-        
-        # Set the parameter for the URI
-        $Parameters = @{
-            MCCAVersion  = $MCCAVersion
-            Domain       = $DomainName
-            Organization = $OrganizationName
-        } | ConvertTo-Json
-
-        try {
-            
-            # URI and Function Key to trigger the Azure Function
-            $URI = "Put Azure function based Telemetry URL here"
-            $FunctionKey = "Put Function key here"
-
-            try {
-                # Set the header for the URI
-                $Headers = @{
-                    'x-functions-key' = $FunctionKey
-                }
-
-                # Call the URI
-                $ResponseMessage = Invoke-WebRequest -Uri $URI -Headers $Headers -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                   
-                Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                
-            }
-            catch {
-                $ErrorMessage = $_.ToString()
-                $StackTraceInfo = $_.ScriptStackTrace
-                Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                                 
-            }                      
-        }
-        catch {
-            $ErrorMessage = $_.ToString()
-            $StackTraceInfo = $_.ScriptStackTrace
-            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                 
-        }
-    }
 
     # Get the output modules
     $InfoMessage = "Creating Output Objects"
@@ -1374,6 +1342,95 @@ Function Invoke-MCCA {
 
     }
 
+    # If Telemetry is enabled (For Customers), then collect telemetry
+    if ($($global:TelemetryEnabled) -eq $true) {
+        $InfoMessage = "Collecting Telemetry"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+
+        $MCCAVersion = $VersionCheck.Version.ToString()
+
+        # Setting tenant name
+        if ($Collection["AcceptedDomains"] -eq "Error") {
+            $DomainName = "Error"
+        }
+        else {
+            $DomainName = ($Collection["AcceptedDomains"] | Where-Object { $_.InitialDomain -eq $True }).DomainName
+        }
+
+        # Setting organization name
+        if ($Collection["GetOrganisationConfig"] -eq "Error") {
+            $OrganizationName = "Error"
+        }
+        else {
+            $OrganizationName = $Collection["GetOrganisationConfig"].DisplayName
+        }
+        
+        $SolutionSummaryResult = @{}
+        ForEach ($Area in ($Checks | Where-Object { $_.Completed -eq $true } | Group-Object Area)) {
+            if($($Area.Name) -eq "Compliance Manager")
+            {
+                continue
+            }
+            $Pass = @($Area.Group | Where-Object { $_.Result -eq "Pass" }).Count
+            $Fail = @($Area.Group | Where-Object { $_.Result -eq "Fail" }).Count
+            $Info = @($Area.Group | Where-Object { $_.Result -eq "Recommendation" }).Count
+            $SolutionSummaryResult[$($Area.Name)] = New-Object -TypeName PSObject -Property @{
+                Pass = $Pass
+                Info = $Info
+                Fail = $Fail
+            }
+        }
+        # Set the parameter for the URI
+        $Parameters = @{
+            MCCAVersion  = $MCCAVersion
+            Domain       = $DomainName
+            Organization = $OrganizationName
+        }
+        $AllSolutions = Get-SolutionTable
+        foreach ($solution in $($AllSolutions.Values.FullName)) {
+            $solutionName = $solution -replace '\s', ''
+            if ($SolutionSummaryResult.ContainsKey($solution)) {
+                $Parameters.Add($($solutionName + "_Pass"), $SolutionSummaryResult[$solution].Pass)
+                $Parameters.Add($($solutionName + "_Info"), $SolutionSummaryResult[$solution].Info)
+                $Parameters.Add($($solutionName + "_Fail"), $SolutionSummaryResult[$solution].Fail)           
+            }
+            else {
+                $Parameters.Add($($solutionName + "_Pass"), 0)
+                $Parameters.Add($($solutionName + "_Info"), 0)
+                $Parameters.Add($($solutionName + "_Fail"), 0)
+            }
+        }
+        $Parameters = $Parameters | ConvertTo-Json
+
+        try {
+            
+            # URI and Function Key to trigger the Azure Function 
+            $URI = "Put Azure function based Telemetry URL here"
+            $FunctionKey = "Put Function key here"
+
+            try {
+                # Set the header for the URI
+                $Headers = @{
+                    'x-functions-key' = $FunctionKey
+                }
+
+                # Call the URI
+                $ResponseMessage = Invoke-WebRequest -Uri $URI -Headers $Headers -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                   
+                Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                
+            }
+            catch {
+                $ErrorMessage = $_.ToString()
+                $StackTraceInfo = $_.ScriptStackTrace
+                Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                                 
+            }                      
+        }
+        catch {
+            $ErrorMessage = $_.ToString()
+            $StackTraceInfo = $_.ScriptStackTrace
+            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                 
+        }
+    }
     Return $OutputResults
 
 }
