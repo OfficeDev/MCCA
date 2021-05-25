@@ -67,7 +67,7 @@ class IP101 : MCCACheck {
                 . $UtilityFile.FullName
             }
             $LogFile = $this.LogFile
-            $LabelAssociation = Get-LableCalssification -LogFile $LogFile
+            $LabelAssociation = Get-LableClassification -LogFile $LogFile
             $SubLabels = $LabelAssociation.sublabels
             $ParentLabels = $LabelAssociation.parentlabels
             $ParentSubLabelAssociation = $LabelAssociation.parentsublabelassociation
