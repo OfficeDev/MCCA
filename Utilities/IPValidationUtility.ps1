@@ -4,7 +4,7 @@ using module "..\MCCA.psm1"
  This function returns list of parent labels and sublabels
 #>
 
-Function Get-LableClassification {
+Function Get-LabelClassification {
     Param(
         $LogFile
     )
