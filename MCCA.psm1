@@ -44,6 +44,7 @@
 [bool] $global:TelemetryEnabled = $false
 
 [string] $global:EnvironmentName = ""
+[string] $global:UserName = ""
 function Get-MCCADirectory {
     <#
 
@@ -99,6 +100,7 @@ Function Invoke-MCCAConnections {
         }
 
         $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
+        $global:UserName = $userName
         $InfoMessage = "Connecting to Exchange Online (Modern Module).."
         Write-Host "$(Get-Date) $InfoMessage"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
@@ -1252,13 +1254,13 @@ Function Invoke-MCCA {
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     }
 
-   
+  
     $InfoMessage = "Establishing Connections"
     Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
     Invoke-MCCAConnections -LogFile $LogFile -ExchangeEnvironmentName $ExchangeEnvironmentName
     $InfoMessage = "Connections Established"
     Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-    
+  
 
 
     # Get the collection in to memory. For testing purposes, we support passing the collection as an object
@@ -1351,7 +1353,7 @@ Function Invoke-MCCA {
         }
 
     }
-
+    
     # If Telemetry is enabled (For Customers), then collect telemetry
     if ($($global:TelemetryEnabled) -eq $true) {
         $InfoMessage = "Collecting Telemetry"
@@ -1360,8 +1362,21 @@ Function Invoke-MCCA {
         $MCCAVersion = $VersionCheck.Version.ToString()
 
         # Setting tenant name
-        if ($Collection["AcceptedDomains"] -eq "Error") {
-            $DomainName = "Error"
+        if (($Collection["AcceptedDomains"] -eq "Error") -or ($Collection["AcceptedDomains"] -eq "") -or ($null -eq $Collection["AcceptedDomains"]) ) {
+            if($null -ne $global:UserName)
+            {
+                if($global:UserName.Contains("@"))
+                {
+                    $DomainName = $global:UserName.Split("@")[1];
+                }
+                else 
+                {
+                    $DomainName = "Error"
+                } 
+            }
+            else {
+                $DomainName = "Error" 
+            }          
         }
         else {
             $DomainName = ($Collection["AcceptedDomains"] | Where-Object { $_.InitialDomain -eq $True }).DomainName
@@ -1427,7 +1442,7 @@ Function Invoke-MCCA {
                 # Call the URI
                 $ResponseMessage = Invoke-WebRequest -Uri $URI -Headers $Headers -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                   
                 Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                
+                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                             
             }
             catch {
                 $ErrorMessage = $_.ToString()
@@ -1459,7 +1474,7 @@ function Invoke-MCCAVersionCheck {
 
     try {
         $MCCAVersion = (Get-InstalledModule MCCA -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
-        
+
     }
     catch {
         $MCCAVersion = (Get-InstalledModule MCCAPreview | Sort-Object Version -Desc)[0].Version
