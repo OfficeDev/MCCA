@@ -1201,6 +1201,10 @@ Function Get-MCCAReport {
         $InfoMessage = "Complete! Output is in $($Result.Result)"
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
         Write-Host "$(Get-Date) $InfoMessage"
+
+        $InfoMessage = "Get the log at $LogFile"
+        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
+        Write-Host "$(Get-Date) $InfoMessage"
         try {
             Write-EXOPAdminAuditLog -Comment "MCCA Completed at - $(Get-Date)"
     
