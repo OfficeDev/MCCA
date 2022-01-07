@@ -44,7 +44,7 @@
 [bool] $global:TelemetryEnabled = $false
 
 # Connection Established 
-[bool] $global:ConnectionEstablish = $false
+[bool] $global:ConnectionEstablished = $false
 
 [string] $global:EnvironmentName = ""
 [string] $global:UserName = ""
@@ -102,7 +102,7 @@ Function Invoke-MCCAConnections {
             Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
         }
 
-        $global:ConnectionEstablish = $true
+        $global:ConnectionEstablished = $true
 
         $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
         $global:UserName = $userName
@@ -1231,7 +1231,7 @@ Function Get-MCCAReport {
         Write-Host "$(Get-Date) $InfoMessage"
 
         try {
-            if($($global:ConnectionEstablish) -eq $true)
+            if($($global:ConnectionEstablished) -eq $true)
             {
                 Disconnect-ExchangeOnline -Confirm:$false -ErrorAction:SilentlyContinue  
             }      
