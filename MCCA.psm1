@@ -1202,9 +1202,6 @@ Function Get-MCCAReport {
         Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
         Write-Host "$(Get-Date) $InfoMessage"
 
-        $InfoMessage = "Get the log at $LogFile"
-        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-        Write-Host "$(Get-Date) $InfoMessage"
         try {
             Write-EXOPAdminAuditLog -Comment "MCCA Completed at - $(Get-Date)"
     
@@ -1214,8 +1211,6 @@ Function Get-MCCAReport {
             $StackTraceInfo = $_.ScriptStackTrace
             Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
         }
-        Write-Log -StopInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in running the tool. Please try running the tool again after some time." -ForegroundColor:Red
@@ -1223,13 +1218,19 @@ Function Get-MCCAReport {
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
         Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-            
     }
-    try {
-        Disconnect-ExchangeOnline -Confirm:$false -ErrorAction:SilentlyContinue
-    }
-    catch {
+    finally {
+        Write-Log -StopInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
         
+        $InfoMessage = "Get the log at $LogFile"
+        Write-Host "$(Get-Date) $InfoMessage"
+
+        try {
+            Disconnect-ExchangeOnline -Confirm:$false -ErrorAction:SilentlyContinue           
+        }
+        catch {
+            
+        }
     }
    
 }
