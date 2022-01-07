@@ -43,6 +43,9 @@
 # TelemetryEnabled 
 [bool] $global:TelemetryEnabled = $false
 
+# Connection Established 
+[bool] $global:ConnectionEstablish = $false
+
 [string] $global:EnvironmentName = ""
 [string] $global:UserName = ""
 function Get-MCCADirectory {
@@ -98,6 +101,8 @@ Function Invoke-MCCAConnections {
             write-host "$(Get-Date) Your Exchange Online Management module is not updated. Updating.."
             Update-Module -Name "ExchangeOnlineManagement" -RequiredVersion 2.0.3
         }
+
+        $global:ConnectionEstablish = $true
 
         $userName = Read-Host -Prompt 'Input the user name' -ErrorAction:SilentlyContinue
         $global:UserName = $userName
@@ -1226,7 +1231,10 @@ Function Get-MCCAReport {
         Write-Host "$(Get-Date) $InfoMessage"
 
         try {
-            Disconnect-ExchangeOnline -Confirm:$false -ErrorAction:SilentlyContinue           
+            if($($global:ConnectionEstablish) -eq $true)
+            {
+                Disconnect-ExchangeOnline -Confirm:$false -ErrorAction:SilentlyContinue  
+            }      
         }
         catch {
             
