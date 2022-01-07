@@ -1221,9 +1221,8 @@ Function Get-MCCAReport {
     }
     finally {
         Write-Log -StopInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
-
+        
         $InfoMessage = "Get the log at $LogFile"
-        Write-Log -IsInfo -InfoMessage $InfoMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
         Write-Host "$(Get-Date) $InfoMessage"
 
         try {
