@@ -1219,7 +1219,7 @@ Function Get-MCCAReport {
     }
     catch {
         Write-Host "Error:$(Get-Date) There was an issue in running the tool. Please try running the tool again after some time." -ForegroundColor:Red
-        Write-Host "Please refer documentation for more details. If the issue persists, please write to us at MCCAhelp@microsoft.com." -ForegroundColor:Red
+        Write-Host "Refer to the documentation and FAQs available at https://github.com/OfficeDev/MCCA/blob/main/README.md to get further guidance to resolve commonly observed issues. If the issue persists, please write to us at MCCAhelp@microsoft.com." -ForegroundColor:Red
         $ErrorMessage = $_.ToString()
         $StackTraceInfo = $_.ScriptStackTrace
         Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue
