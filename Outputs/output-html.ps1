@@ -238,14 +238,12 @@ class html : MCCAOutput {
                 <div class='card'>
                         
                         <div class='card-body'>
-                            
-                            <div style='text-align:left'>
-                            <h2 class='card-title'>$($ReportTitle)</h2>
 
-                            <div style='text-align:right;margin-top:-65px;margin-right:8px;color:#005494;';>
+                            <h2 class='card-title'>$($ReportTitle)</h2>"
+                            
+                            $Output += "<div style='text-align:right;margin-top:-65px;margin-right:8px;color:#005494;';>
 				            <b>Rate this report</b>
 					</div>
-
                          <div style='text-align:right;margin-top:-10px';>
              
                          <span class='star-cb-group'>
@@ -262,11 +260,19 @@ class html : MCCAOutput {
                             <input type='radio' id='rating-0' name='rating' value='0' class='star-cb-clear' />
                             <label for='rating-0'>0</label>
                             </span>
-                         </div>
-                            <strong>Version $version </strong>
+                         </div>"
+
+                            if ($(Test-Path -Path "$PSScriptRoot\..\Image\logo.jpg") -eq $True) {
+                                $Output += "<img src='$PSScriptRoot\..\Image\logo.jpg' align='right' width='250px' height='150px'/>
+                                "
+                            }
+                    
+                            $Output += "<strong>Version $version </strong>
                             <p> MCCA assesses your compliance posture, highlights risks and recommends remediation steps to ensure compliance with essential data protection and regulatory standards.</p>"
 
+                            
 
+        
         $Output += "<table><tr><td>
                             <strong>Date</strong>  </td>
                             <td><strong>: $($ReportDate)</strong>  </td>
