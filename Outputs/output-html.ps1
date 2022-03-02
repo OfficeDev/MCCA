@@ -154,6 +154,62 @@ class html : MCCAOutput {
             padding-top:2px; 
             padding-bottom :2px; 
         }
+        .star-cb-group {
+            /* remove inline-block whitespace */
+            font-size: 0;
+            /* flip the order so we can use the + and ~ combinators */
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            /* the hidden clearer */
+          }
+          .star-cb-group * {
+            font-size: 1rem;
+          }
+          .star-cb-group > input {
+            display: none;
+          }
+          .star-cb-group > input + label {
+            /* only enough room for the star */
+            display: inline-block;
+            overflow: hidden;
+            text-indent: 9999px;
+            width: 1.7em;
+            white-space: nowrap;
+            cursor: pointer;
+          }
+          .star-cb-group > input + label:before {
+            display: inline-block;
+            text-indent: -9999px;
+            content: ""\2606"";
+            font-size: 30px;
+            color: #005494;
+          }
+          .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+            content:""\2605"";
+            color: #e52;
+          font-size: 30px;
+            text-shadow: 0 0 1px #333;
+          }
+          .star-cb-group > .star-cb-clear + label {
+            text-indent: -9999px;
+            width: .5em;
+            margin-left: -.5em;
+          }
+          .star-cb-group > .star-cb-clear + label:before {
+            width: .5em;
+          }
+          .star-cb-group:hover > input + label:before {
+            content: ""\2606"";
+            color: #005494;
+          font-size: 30px;
+            text-shadow: none;
+          }
+          .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+            content: ""\2605"";
+            color: #e52;
+          font-size: 30px;
+            text-shadow: 0 0 1px #333;
+          }
         </style>
 
         <title>$($ReportTitle)</title>
@@ -182,20 +238,34 @@ class html : MCCAOutput {
                 <div class='card'>
                         
                         <div class='card-body'>
+                            
+                            <div style='text-align:left'>
                             <h2 class='card-title'>$($ReportTitle)</h2>
 
+                            <div style='text-align:right;margin-top:-65px;margin-right:8px;color:#005494;';>
+				            <b>Rate this report</b>
+					</div>
+
+                         <div style='text-align:right;margin-top:-10px';>
+             
+                         <span class='star-cb-group'>
+                            <input type='radio' id='rating-5' name='rating' value='5' onclick=""window.open('https://aka.ms/mcca-feedback-5','_blank');"" />
+                            <label for='rating-5'>5</label>
+                            <input type='radio' id='rating-4' name='rating' value='4' onclick=""window.open('https://aka.ms/mcca-feedback-4','_blank');"" />
+                            <label for='rating-4'>4</label>
+                            <input type='radio' id='rating-3' name='rating' value='3' onclick=""window.open('https://aka.ms/mcca-feedback-3','_blank');"" />
+                            <label for='rating-3'>3</label>
+                            <input type='radio' id='rating-2' name='rating' value='2' onclick=""window.open('https://aka.ms/mcca-feedback-2','_blank');"" />
+                            <label for='rating-2'>2</label>
+                            <input type='radio' id='rating-1' name='rating' value='1' onclick=""window.open('https://aka.ms/mcca-feedback-1','_blank');"" />
+                            <label for='rating-1'>1</label>
+                            <input type='radio' id='rating-0' name='rating' value='0' class='star-cb-clear' />
+                            <label for='rating-0'>0</label>
+                            </span>
+                         </div>
                             <strong>Version $version </strong>
                             <p> MCCA assesses your compliance posture, highlights risks and recommends remediation steps to ensure compliance with essential data protection and regulatory standards.</p>"
 
-        If ($this.VersionCheck.Preview -eq $True) {
-
-            $Output += "
-                                <div class='alert alert-warning pt-2' role='alert'>
-                                    You are running a preview version of MCCA! Preview versions may contain errors which could result in an incorrect report. Verify the results and any configuration before deploying changes.
-                                </div>
-                                
-                                "
-        }
 
         $Output += "<table><tr><td>
                             <strong>Date</strong>  </td>
