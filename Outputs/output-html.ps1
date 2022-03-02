@@ -182,21 +182,17 @@ class html : MCCAOutput {
                 <div class='card'>
                         
                         <div class='card-body'>
-                            <h2 class='card-title'>$($ReportTitle)</h2>
+                            <h2 class='card-title'>$($ReportTitle)</h2>"
 
-                            <strong>Version $version </strong>
+                            if ($(Test-Path -Path "$PSScriptRoot\..\Image\logo.jpg") -eq $True) {
+                                $Output += "<img src='$PSScriptRoot\..\Image\logo.jpg' align='right' width='250px' height='150px'/>
+                                "
+                            }
+                    
+                            $Output += "<strong>Version $version </strong>
                             <p> MCCA assesses your compliance posture, highlights risks and recommends remediation steps to ensure compliance with essential data protection and regulatory standards.</p>"
 
-        If ($this.VersionCheck.Preview -eq $True) {
-
-            $Output += "
-                                <div class='alert alert-warning pt-2' role='alert'>
-                                    You are running a preview version of MCCA! Preview versions may contain errors which could result in an incorrect report. Verify the results and any configuration before deploying changes.
-                                </div>
-                                
-                                "
-        }
-
+        
         $Output += "<table><tr><td>
                             <strong>Date</strong>  </td>
                             <td><strong>: $($ReportDate)</strong>  </td>
