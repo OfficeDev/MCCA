@@ -1440,33 +1440,20 @@ Function Invoke-MCCA {
         }
         $Parameters = $Parameters | ConvertTo-Json
 
-        try {
-            
-            # URI and Function Key to trigger the Azure Function 
-            $URI = "Put Azure function based Telemetry URL here"
-            $FunctionKey = "Put Function key here"
+        try
+        {
+            # URI to trigger the Telemetry Function 
+            $URI = "Put Telemetry URL here"
 
-            try {
-                # Set the header for the URI
-                $Headers = @{
-                    'x-functions-key' = $FunctionKey
-                }
+            # Call the URI
+            $ResponseMessage = Invoke-WebRequest -Uri $URI -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                     
+            Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
 
-                # Call the URI
-                $ResponseMessage = Invoke-WebRequest -Uri $URI -Headers $Headers -ContentType "application/json" -Method POST -Body $Parameters -ErrorAction:SilentlyContinue                   
-                Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
-                Write-Host "$(Get-Date) $ResponseMessage" -ForegroundColor Yellow                             
-            }
-            catch {
-                $ErrorMessage = $_.ToString()
-                $StackTraceInfo = $_.ScriptStackTrace
-                Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                                 
-            }                      
         }
-        catch {
-            $ErrorMessage = $_.ToString()
-            $StackTraceInfo = $_.ScriptStackTrace
-            Write-Log -IsError -ErrorMessage $ErrorMessage -StackTraceInfo $StackTraceInfo -LogFile $LogFile -ErrorAction:SilentlyContinue                 
+        catch
+        {
+            $ResponseMessage = "Telemetry execution failed!"
+            Write-Log -IsInfo -InfoMessage $ResponseMessage -LogFile $LogFile -ErrorAction:SilentlyContinue
         }
     }
     Return $OutputResults
