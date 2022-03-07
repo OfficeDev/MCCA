@@ -335,6 +335,10 @@ running the `Get-MCCAReport` cmdlet, you can input an extra parameter by
 
 Please refer the *Install Guide* section above for more detailed steps.
 
+### How can I add my organization's Logo in the report?
+
+You can quickly add your organization's logo in the report by replacing the image file present in the Image folder with your logo's image with same name and file extension (i.e. logo.jpg). Please note that your logo image should be able to accurately fit within the width of 250px and height of 150px respectively.
+
 ### How do I save my report?
 
 Please use the "Print" button provided on top right corner of the report
