@@ -235,7 +235,7 @@ For e.g. If you wanted to create report for the DLP solution only then
 you can run the following command:
 
 ```powershell
-Get-MCCAReport --solution @(1)
+Get-MCCAReport -solution @(1)
 ```
 
 You can learn more about this input parameter in the Input Parameters
